@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Tags -->
-    <title>OYB DEVELOPER | Official Roblox Scripts & Systems</title>
-    <meta name="description" content="The official website of OYB DEVELOPER. Providing secure, optimized, and scalable systems for the Roblox ecosystem. Luau, API Integration, and Custom Scripts.">
-    <meta name="keywords" content="OYB, OYB DEVELOPER, OYB Roblox Scripts, OYB Hub, Roblox Executor Scripts, Luau, Roblox Studio Systems, Wissam Roblox, OYB Telegram Monitor">
+    <title>OYB DEVELOPER | Official Software & Scripts</title>
+    <meta name="description" content="The official website of OYB DEVELOPER. Providing secure, optimized, and scalable systems for Roblox, AI, and Desktop Applications.">
+    <meta name="keywords" content="OYB, OYB DEVELOPER, Software Developer, Roblox Scripts, Luau, API Integration, Python, AI Systems">
     <meta name="author" content="OYB DEVELOPER (Wissam)">
     
-    <!-- إضافة صورة التبويب (Favicon) هنا -->
     <link rel="icon" type="image/png" href="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true">
     
     <!-- Tailwind CSS (CDN) -->
@@ -22,7 +21,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Custom Tailwind Config & CSS -->
     <script>
         tailwind.config = {
             theme: {
@@ -35,7 +33,7 @@
                         brand: {
                             dark: '#0a0a0f',
                             card: '#13131a',
-                            accent: '#3b82f6', // Blue
+                            accent: '#3b82f6', 
                             glow: '#60a5fa'
                         }
                     },
@@ -54,71 +52,32 @@
         }
     </script>
     <style>
-        body {
-            background-color: #0a0a0f;
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
-        
-        /* Grid Background Pattern */
+        body { background-color: #0a0a0f; color: #e2e8f0; overflow-x: hidden; }
         .bg-grid {
             background-size: 40px 40px;
             background-image: 
                 linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
-
-        /* Glowing Effects */
-        .glow-text {
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
+        .glow-text { text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+        .card-hover { transition: all 0.3s ease; }
         .card-hover:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.4);
             border-color: rgba(59, 130, 246, 0.5);
         }
-
-        /* Code Block Styling */
-        .code-snippet {
-            background: #000;
-            border-left: 4px solid #3b82f6;
-        }
-
-        /* Scrollbar */
+        .code-snippet { background: #000; border-left: 4px solid #3b82f6; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0f; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
-        
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
             will-change: opacity, visibility;
         }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: none;
-        }
-
-        /* Loading Spinner */
-        .loader {
-            border: 3px solid rgba(59, 130, 246, 0.3);
-            border-radius: 50%;
-            border-top: 3px solid #3b82f6;
-            width: 40px;
-            height: 40px;
-            -webkit-animation: spin 1s linear infinite; /* Safari */
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        .fade-in-section.is-visible { opacity: 1; transform: none; }
     </style>
 </head>
 <body class="bg-brand-dark antialiased bg-grid relative selection:bg-brand-accent selection:text-white">
@@ -132,7 +91,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex-shrink-0 flex items-center gap-3">
-                    <!-- الصورة هنا بدلاً من حرف O -->
                     <img src="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true" alt="OYB Logo" class="w-10 h-10 rounded-xl shadow-[0_0_15px_rgba(59,130,246,0.5)] object-cover">
                     <span class="font-bold text-2xl tracking-wider text-white">OYB<span class="text-brand-accent">.</span></span>
                 </div>
@@ -158,7 +116,7 @@
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
                 </span>
-                Luau Developer & API Integrator
+                Software Developer | AI Systems & Automation
             </div>
             
             <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
@@ -167,19 +125,18 @@
             </h1>
             
             <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto mb-10 leading-relaxed">
-                Providing secure, optimized, and scalable systems for the Roblox ecosystem. All source code is built with a focus on performance and seamless integration.
+                Building secure, optimized, and scalable systems across the software ecosystem. From advanced AI tools and Desktop apps to comprehensive Roblox architectures.
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="#projects" class="px-8 py-4 bg-brand-accent hover:bg-blue-600 text-white rounded-xl font-semibold transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] flex items-center justify-center gap-2">
-                    <i class="fas fa-rocket"></i> Explore Scripts
+                    <i class="fas fa-rocket"></i> Explore Projects
                 </a>
                 <a href="https://discord.gg/kT55J724BK" target="_blank" class="px-8 py-4 bg-[#5865F2]/10 border border-[#5865F2]/30 hover:bg-[#5865F2]/20 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2">
                     <i class="fab fa-discord text-[#5865F2]"></i> Join Community
                 </a>
             </div>
 
-            <!-- Social Links Mini -->
             <div class="mt-12 flex justify-center gap-6">
                 <a href="https://www.youtube.com/@OYBloxYT" target="_blank" class="text-gray-500 hover:text-[#FF0000] text-2xl transition-colors"><i class="fab fa-youtube"></i></a>
                 <a href="https://www.instagram.com/oyb0i" target="_blank" class="text-gray-500 hover:text-[#E4405F] text-2xl transition-colors"><i class="fab fa-instagram"></i></a>
@@ -194,80 +151,75 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div>
                     <h2 class="text-3xl font-bold mb-6">Built for <span class="text-brand-accent">Performance</span>.</h2>
-                    
-                    <!-- تم تعديل النص هنا بناءً على طلبك ليكون مناسباً لـ Portfolio شخصي -->
                     <p class="text-gray-400 mb-6 leading-relaxed">
-                        I specialize in developing advanced architectures, secure authentication protocols, and seamless API integrations. My main goal is to build robust, scalable solutions that elevate the overall user experience and bridge the gap between Roblox and external web services.
+                        I specialize in developing advanced architectures, secure authentication protocols, and seamless API integrations. My main goal is to build robust, scalable solutions.
                     </p>
-                    
                     <div class="space-y-4">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 text-xl"><i class="fas fa-code"></i></div>
                             <div>
                                 <h4 class="font-semibold text-white">Languages</h4>
-                                <p class="text-sm text-gray-500">Luau (Roblox), Python, JavaScript, HTML/CSS</p>
+                                <p class="text-sm text-gray-500">Python, Luau, JavaScript, HTML/CSS, Flask</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xl"><i class="fas fa-server"></i></div>
                             <div>
                                 <h4 class="font-semibold text-white">Specialties</h4>
-                                <p class="text-sm text-gray-500">API Integration, Secure Auth, Backend Systems</p>
+                                <p class="text-sm text-gray-500">AI Integration, Secure Auth, Backend & Desktop Apps</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Code visualizer -->
                 <div class="code-snippet p-6 rounded-xl font-mono text-sm shadow-2xl relative overflow-hidden group">
                     <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
                     <div class="flex items-center gap-2 mb-4">
                         <div class="w-3 h-3 rounded-full bg-red-500"></div>
                         <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                         <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span class="text-gray-500 text-xs ml-2">SecretCode.lua</span>
+                        <span class="text-gray-500 text-xs ml-2">oyb_engine.py</span>
                     </div>
-                    <pre class="text-gray-300 overflow-x-auto"><code><span class="text-purple-400">local</span> ProtectionConfig = {
-    <span class="text-gray-500">-- Must match Key System Config</span>
-    SecretKey = <span class="text-green-400">"Test"</span>,
-    HubName = <span class="text-green-400">"OYB HUB"</span>
-}
+                    <pre class="text-gray-300 overflow-x-auto"><code><span class="text-purple-400">class</span> <span class="text-blue-400">OYBSystem</span>:
+    <span class="text-purple-400">def</span> <span class="text-blue-400">__init__</span>(self):
+        self.status = <span class="text-green-400">"Online"</span>
+        self.version = <span class="text-green-400">"2026.1"</span>
 
-<span class="text-purple-400">if not</span> _G[ProtectionConfig.SecretKey] <span class="text-purple-400">then</span>
-    <span class="text-blue-400">game</span>:GetService(<span class="text-green-400">"Players"</span>).LocalPlayer:Kick(<span class="text-green-400">"Unauthorized"</span>)
-    <span class="text-purple-400">return</span>
-<span class="text-purple-400">end</span>
+    <span class="text-purple-400">def</span> <span class="text-blue-400">deploy</span>(self):
+        <span class="text-blue-400">print</span>(f<span class="text-green-400">"Deploying {self.version}..."</span>)
 
-<span class="text-blue-400">print</span>(<span class="text-green-400">"Loaded Successfully!"</span>)</code></pre>
+<span class="text-purple-400">if</span> __name__ == <span class="text-green-400">"__main__"</span>:
+    OYBSystem().deploy()</code></pre>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Auto-Generated Projects Section -->
-    <section id="projects" class="py-24 relative">
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 relative min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-section">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="text-brand-accent">Scripts & Systems</span></h2>
-                
-                <!-- تم تعديل النص هنا وإزالة شرح الـ API -->
-                <p class="text-gray-400 max-w-2xl mx-auto">Explore a curated collection of my recent scripts, tools, and advanced systems developed for the Roblox platform.</p>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="text-brand-accent">Projects & Systems</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Explore a curated collection of my work. Everything here is managed manually for maximum stability and speed.</p>
             </div>
 
-            <!-- Loading Indicator -->
-            <div id="loading-spinner" class="flex flex-col items-center justify-center py-10">
-                <div class="loader mb-4"></div>
-                <p class="text-brand-accent animate-pulse">Loading projects...</p>
+            <!-- Tabs -->
+            <div id="filter-tabs" class="flex flex-wrap justify-center gap-3 mb-10">
+                <!-- Will be injected by JS -->
             </div>
 
-            <!-- Projects Grid Container -->
-            <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
-                <!-- Cards will be injected here by JavaScript -->
+            <!-- Loader -->
+            <div id="loading-spinner" class="flex flex-col items-center justify-center py-10 hidden">
+                <div class="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-4"></div>
+                <p class="text-brand-accent animate-pulse">Loading manual database...</p>
+            </div>
+
+            <!-- Grid -->
+            <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Cards will be injected by JS -->
             </div>
             
-            <!-- Error Message Container -->
             <div id="error-message" class="hidden text-center text-red-400 p-4 border border-red-500/20 bg-red-500/10 rounded-xl max-w-2xl mx-auto mt-8">
-                Failed to load projects. Please try again later.
+                Failed to load local database.
             </div>
         </div>
     </section>
@@ -276,11 +228,10 @@
     <footer class="border-t border-white/5 bg-black/40 pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-section">
             <div class="flex justify-center items-center gap-2 mb-6">
-                <!-- الصورة هنا أيضاً في الفوتر -->
                 <img src="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true" alt="OYB Logo" class="w-8 h-8 rounded-lg object-cover">
                 <span class="font-bold text-xl tracking-wider">OYB<span class="text-brand-accent">.</span></span>
             </div>
-            <p class="text-gray-500 mb-6 max-w-md mx-auto">Elevating the Roblox development ecosystem with premium open-source solutions.</p>
+            <p class="text-gray-500 mb-6 max-w-md mx-auto">Elevating the software development ecosystem with premium solutions.</p>
             
             <div class="flex justify-center gap-6 mb-10">
                 <a href="https://discord.gg/kT55J724BK" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all"><i class="fab fa-discord"></i></a>
@@ -295,126 +246,96 @@
         </div>
     </footer>
 
-    <!-- Scroll, Animation & GitHub API Scripts -->
+    <!-- الربط بملف البيانات اليدوي -->
+    <script src="projects.js"></script>
+
     <script>
-        // Set current year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Navbar blur on scroll
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-black/50', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-lg');
-            } else {
-                navbar.classList.remove('bg-black/50', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-lg');
-            }
+            if (window.scrollY > 50) navbar.classList.add('bg-black/50', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-lg');
+            else navbar.classList.remove('bg-black/50', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-lg');
         });
 
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in-section').forEach((section) => observer.observe(section));
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+        let allProjects = [];
 
-        document.querySelectorAll('.fade-in-section').forEach((section) => {
-            observer.observe(section);
-        });
-
-        // --- GITHUB API AUTO-FETCH SYSTEM ---
-        // يبقى يبحث في مستودع OYB القديم لجلب المشاريع
-        const githubUsername = "OYB0";
-        const githubRepo = "OYB";
-        const foldersToScan = ["Roblox/Executor", "Roblox/RobloxStudio"];
-        
-        const projectsContainer = document.getElementById('projects-container');
-        const loadingSpinner = document.getElementById('loading-spinner');
-        const errorMessage = document.getElementById('error-message');
-
-        async function fetchGitHubProjects() {
+        // دالة عرض المشاريع يدوياً
+        function loadManualProjects() {
             try {
-                let allProjects = [];
-
-                for (const folder of foldersToScan) {
-                    const response = await fetch(`https://api.github.com/repos/${githubUsername}/${githubRepo}/contents/${folder}`);
-                    
-                    if (!response.ok) {
-                        throw new Error(`GitHub API Error: ${response.status}`);
-                    }
-
-                    const data = await response.json();
-                    
-                    const directories = data.filter(item => item.type === 'dir');
-                    
-                    directories.forEach(dir => {
-                        allProjects.push({
-                            name: dir.name,
-                            path: dir.path,
-                            url: dir.html_url,
-                            imageUrl: `https://raw.githubusercontent.com/${githubUsername}/${githubRepo}/main/${dir.path}/cover.png`,
-                            category: folder.includes('Executor') ? 'Executor Script' : 'Roblox Studio'
-                        });
-                    });
+                // التأكد من أن الملف projects.js قد تم تحميله وأن المتغير موجود
+                if (typeof myProjectsData === 'undefined') {
+                    throw new Error("Local data not found");
                 }
 
-                renderProjects(allProjects);
-
+                allProjects = myProjectsData;
+                renderFilterTabs();
+                renderProjects('All');
+                
             } catch (error) {
-                console.error("Error fetching projects:", error);
-                loadingSpinner.classList.add('hidden');
-                errorMessage.classList.remove('hidden');
+                console.error(error);
+                document.getElementById('error-message').classList.remove('hidden');
             }
         }
 
-        function renderProjects(projects) {
-            loadingSpinner.classList.add('hidden');
-            projectsContainer.classList.remove('hidden');
+        function renderFilterTabs() {
+            const tabsContainer = document.getElementById('filter-tabs');
+            const categories = ['All', ...new Set(allProjects.map(p => p.mainCategory))];
+            
+            tabsContainer.innerHTML = categories.map(cat => `
+                <button onclick="filterProjects('${cat}')" 
+                        data-cat="${cat}"
+                        class="filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-white/10 ${cat === 'All' ? 'bg-brand-accent text-white border-brand-accent shadow-[0_0_15px_rgba(59,130,246,0.4)]' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'}">
+                    ${cat}
+                </button>
+            `).join('');
+        }
 
-            projects.forEach(project => {
-                const cleanName = project.name.replace(/([A-Z])/g, ' $1').trim();
+        window.filterProjects = function(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === category) {
+                    btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-brand-accent bg-brand-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]";
+                } else {
+                    btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white";
+                }
+            });
+            renderProjects(category);
+        };
 
+        function renderProjects(category) {
+            const container = document.getElementById('projects-container');
+            container.innerHTML = '';
+
+            const filtered = category === 'All' ? allProjects : allProjects.filter(p => p.mainCategory === category);
+
+            filtered.forEach(project => {
                 const cardHTML = `
                 <div class="bg-brand-card rounded-2xl border border-white/5 card-hover relative overflow-hidden flex flex-col h-full group">
-                    <!-- Image Area -->
                     <div class="h-48 w-full bg-black/50 relative overflow-hidden flex items-center justify-center border-b border-white/5">
-                        <img src="${project.imageUrl}" 
-                             alt="${cleanName}" 
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                             onerror="this.onerror=null; this.outerHTML='<div class=\\'text-blue-500/30 text-5xl\\'><i class=\\'fas fa-code\\'></i></div>';">
-                        
+                        <img src="${project.imageUrl}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                             onerror="this.src='https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';">
                         <div class="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-mono text-gray-300 border border-white/10">
-                            ${project.category}
+                            ${project.badge}
                         </div>
                     </div>
-
-                    <!-- Content Area -->
                     <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold text-white mb-2">${cleanName}</h3>
-                        <p class="text-gray-400 mb-6 text-sm flex-grow">
-                            Explore the source code and files for this project directly on GitHub.
-                        </p>
-                        
+                        <h3 class="text-xl font-bold text-white mb-2">${project.name}</h3>
+                        <p class="text-gray-400 mb-6 text-sm flex-grow">Explore this manual entry project directly on GitHub.</p>
                         <a href="${project.url}" target="_blank" class="w-full py-3 bg-white/5 hover:bg-brand-accent text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-accent flex items-center justify-center gap-2">
                             <i class="fab fa-github"></i> View Repository
                         </a>
                     </div>
-                </div>
-                `;
-                
-                projectsContainer.innerHTML += cardHTML;
+                </div>`;
+                container.innerHTML += cardHTML;
             });
         }
 
-        document.addEventListener('DOMContentLoaded', fetchGitHubProjects);
+        document.addEventListener('DOMContentLoaded', loadManualProjects);
     </script>
 </body>
 </html>
