@@ -22,5 +22,12 @@ const myProjectsData = [
         imageUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/RobloxStudio/RobloxTelegramMonitor/cover.png",
         mainCategory: "Roblox",
         badge: "Roblox Studio"
+    },
+    {
+        name: "تجربه",
+        url: "https://github.com/OYB0/OYB/tree/main/Roblox/RobloxStudio/RobloxTelegramMonitor",
+        imageUrl: "",
+        mainCategory: "جديد",
+        badge: "Roblox Studiofff"
     }
 ];
