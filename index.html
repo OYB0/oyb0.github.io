@@ -138,7 +138,6 @@
             </div>
 
             <div class="mt-12 flex justify-center gap-6">
-                <!-- تم تحديث رابط اليوتيوب للرابط الأساسي الثابت -->
                 <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="text-gray-500 hover:text-[#FF0000] text-2xl transition-colors"><i class="fab fa-youtube"></i></a>
                 <a href="https://www.instagram.com/oyb0i" target="_blank" class="text-gray-500 hover:text-[#E4405F] text-2xl transition-colors"><i class="fab fa-instagram"></i></a>
                 <a href="https://github.com/OYB0" target="_blank" class="text-gray-500 hover:text-white text-2xl transition-colors"><i class="fab fa-github"></i></a>
@@ -236,7 +235,6 @@
             
             <div class="flex justify-center gap-6 mb-10">
                 <a href="https://discord.gg/kT55J724BK" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all"><i class="fab fa-discord"></i></a>
-                <!-- تم تحديث رابط اليوتيوب للرابط الأساسي الثابت -->
                 <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all"><i class="fab fa-youtube"></i></a>
                 <a href="https://github.com/OYB0" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><i class="fab fa-github"></i></a>
                 <a href="https://www.instagram.com/oyb0i" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#E4405F] hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
@@ -247,6 +245,9 @@
             </div>
         </div>
     </footer>
+
+    <!-- حاوية الإشعارات (Toasts) -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- الربط بملف البيانات اليدوي -->
     <script src="projects.js"></script>
@@ -265,12 +266,71 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in-section').forEach((section) => observer.observe(section));
 
+        // نظام الإشعارات (Toast)
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            // ألوان الإشعار حسب نوعه
+            const bgColor = type === 'success' ? 'bg-green-500/20' : 'bg-blue-500/20';
+            const borderColor = type === 'success' ? 'border-green-500/50' : 'border-blue-500/50';
+            const textColor = type === 'success' ? 'text-green-400' : 'text-blue-400';
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+
+            toast.className = `px-5 py-3 rounded-xl shadow-lg backdrop-blur-md border ${borderColor} ${bgColor} text-sm font-semibold text-white transform transition-all duration-300 translate-y-10 opacity-0 flex items-center gap-3`;
+            toast.innerHTML = `<i class="fas ${icon} ${textColor} text-lg"></i> <span>${message}</span>`;
+            
+            container.appendChild(toast);
+
+            // تفعيل حركة الظهور
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            });
+
+            // إخفاء وحذف بعد 3 ثواني
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // دالة نسخ الكود
+        window.copyProjectContent = function(content, btnId) {
+            // استخدام execCommand لضمان النسخ داخل iframes والمتصفحات المختلفة
+            const textArea = document.createElement("textarea");
+            textArea.value = content;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast('Copied to clipboard successfully!', 'success');
+
+                // تغيير شكل الزر لإعطاء تأثير بصري للمستخدم
+                const btn = document.getElementById(btnId);
+                if(btn) {
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check text-green-400"></i> <span class="text-green-400">Copied!</span>';
+                    btn.classList.add('border-green-500/50');
+                    
+                    // إرجاع الزر لشكله الأصلي بعد ثانيتين
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.classList.remove('border-green-500/50');
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error("Copy failed:", err);
+                showToast('Failed to copy', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        };
+
         let allProjects = [];
 
-        // دالة عرض المشاريع يدوياً
         function loadManualProjects() {
             try {
-                // التأكد من أن الملف projects.js قد تم تحميله وأن المتغير موجود
                 if (typeof myProjectsData === 'undefined') {
                     throw new Error("Local data not found");
                 }
@@ -315,22 +375,46 @@
 
             const filtered = category === 'All' ? allProjects : allProjects.filter(p => p.mainCategory === category);
 
-            filtered.forEach(project => {
+            filtered.forEach((project, index) => {
+                // تحديد نوع الزر بناءً على actionType في projects.js
+                const actionType = project.actionType || 'github'; // الافتراضي github لو لم يتم تحديده
+                let buttonHTML = '';
+                
+                if (actionType === 'copy') {
+                    // تشفير النص لتفادي تعارض الأقواس في HTML
+                    const encodedContent = encodeURIComponent(project.copyContent || '');
+                    const btnId = `copy-btn-${index}`;
+                    buttonHTML = `
+                        <button id="${btnId}" onclick="copyProjectContent(decodeURIComponent('${encodedContent}'), '${btnId}')" 
+                                class="w-full py-3 bg-white/5 hover:bg-white/10 text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-glow flex items-center justify-center gap-2 cursor-pointer text-white">
+                            <i class="far fa-copy"></i> Copy Script
+                        </button>
+                    `;
+                } else {
+                    buttonHTML = `
+                        <a href="${project.url}" target="_blank" 
+                           class="w-full py-3 bg-white/5 hover:bg-brand-accent text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-accent flex items-center justify-center gap-2 text-white">
+                            <i class="fab fa-github"></i> View Repository
+                        </a>
+                    `;
+                }
+
+                // عرض النص الوصفي
+                const descriptionText = actionType === 'copy' ? "Click below to copy the script directly to your clipboard." : "Explore this manual entry project directly on GitHub.";
+
                 const cardHTML = `
                 <div class="bg-brand-card rounded-2xl border border-white/5 card-hover relative overflow-hidden flex flex-col h-full group">
                     <div class="h-48 w-full bg-black/50 relative overflow-hidden flex items-center justify-center border-b border-white/5">
                         <img src="${project.imageUrl}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                              onerror="this.src='https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';">
-                        <div class="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-mono text-gray-300 border border-white/10">
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-mono text-gray-300 border border-white/10 shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
                             ${project.badge}
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold text-white mb-2">${project.name}</h3>
-                        <p class="text-gray-400 mb-6 text-sm flex-grow">Explore this manual entry project directly on GitHub.</p>
-                        <a href="${project.url}" target="_blank" class="w-full py-3 bg-white/5 hover:bg-brand-accent text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-accent flex items-center justify-center gap-2">
-                            <i class="fab fa-github"></i> View Repository
-                        </a>
+                        <p class="text-gray-400 mb-6 text-sm flex-grow">${descriptionText}</p>
+                        ${buttonHTML}
                     </div>
                 </div>`;
                 container.innerHTML += cardHTML;
