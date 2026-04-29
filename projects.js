@@ -25,7 +25,7 @@ const myProjectsData = [
     },
     {
         name: "OYB Hub",
-        actionType: "Copy", // التوجيه لرابط جيت هب
+        actionType: "copy", // التوجيه لرابط جيت هب
         copyContent: "loadstring(game:HttpGet('https://raw.githubusercontent.com/OYB0/OYBHubscript/refs/heads/main/oybscript'))()",
         imageUrl: "https://github.com/OYB0/oyb0.github.io/blob/main/OYBHub.png?raw=true",
         mainCategory: "Executor",
