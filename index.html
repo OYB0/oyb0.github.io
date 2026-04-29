@@ -67,7 +67,7 @@
             border-color: rgba(59, 130, 246, 0.5);
         }
         .code-snippet { background: #000; border-left: 4px solid #3b82f6; }
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0f; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
@@ -78,6 +78,11 @@
             will-change: opacity, visibility;
         }
         .fade-in-section.is-visible { opacity: 1; transform: none; }
+        
+        /* Modal Scrollbar */
+        .modal-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+        .modal-scroll::-webkit-scrollbar-track { background: transparent; }
+        .modal-scroll::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-brand-dark antialiased bg-grid relative selection:bg-brand-accent selection:text-white">
@@ -246,6 +251,17 @@
         </div>
     </footer>
 
+    <!-- Project Modal (نافذة عرض المشروع) -->
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
+        <!-- الخلفية المعتمة -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer" onclick="closeModal()"></div>
+        
+        <!-- حاوية النافذة -->
+        <div id="modal-content" class="relative bg-brand-card w-full max-w-5xl max-h-[95vh] rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.15)] overflow-hidden flex flex-col md:flex-row transform scale-95 transition-transform duration-300">
+            <!-- سيتم حقن المحتوى هنا بواسطة الجافا سكربت -->
+        </div>
+    </div>
+
     <!-- حاوية الإشعارات (Toasts) -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
 
@@ -283,65 +299,186 @@
             container.appendChild(toast);
 
             // تفعيل حركة الظهور
-        requestAnimationFrame(() => {
-            toast.classList.remove('translate-y-10', 'opacity-0');
-        });
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            });
 
-        // إخفاء وحذف بعد 3 ثواني
-        setTimeout(() => {
-            toast.classList.add('translate-y-10', 'opacity-0');
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
-    }
-
-    // دالة نسخ الكود
-    window.projectContents = {}; // لتخزين الأكواد وتفادي مشاكل الرموز في HTML
-
-    window.copyProjectContent = function(btnId) {
-        const content = window.projectContents[btnId];
-        if (!content) return;
-
-        const textArea = document.createElement("textarea");
-        textArea.value = content;
-        
-        // جعل المربع غير مرئي لتفادي تشوه الصفحة
-        textArea.style.position = "fixed";
-        textArea.style.top = "0";
-        textArea.style.left = "0";
-        textArea.style.opacity = "0";
-        
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        
-        try {
-            document.execCommand('copy');
-            showToast('Copied to clipboard successfully!', 'success');
-
-            // تغيير شكل الزر لإعطاء تأثير بصري للمستخدم
-            const btn = document.getElementById(btnId);
-            if(btn) {
-                const originalHTML = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check text-green-400"></i> <span class="text-green-400">Copied!</span>';
-                btn.classList.add('border-green-500/50', 'bg-green-500/10');
-                
-                // إرجاع الزر لشكله الأصلي بعد ثانيتين
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                    btn.classList.remove('border-green-500/50', 'bg-green-500/10');
-                }, 2000);
-            }
-        } catch (err) {
-            console.error("Copy failed:", err);
-            showToast('Failed to copy', 'error');
+            // إخفاء وحذف بعد 3 ثواني
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
-        
-        document.body.removeChild(textArea);
-    };
 
-    let allProjects = [];
+        // دالة نسخ الكود
+        window.projectContents = {}; // لتخزين الأكواد وتفادي مشاكل الرموز في HTML
 
-    function loadManualProjects() {
+        window.copyProjectContent = function(btnId) {
+            const content = window.projectContents[btnId];
+            if (!content) return;
+
+            const textArea = document.createElement("textarea");
+            textArea.value = content;
+            
+            // جعل المربع غير مرئي لتفادي تشوه الصفحة
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.opacity = "0";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast('Copied to clipboard successfully!', 'success');
+
+                // تغيير شكل الزر لإعطاء تأثير بصري للمستخدم
+                const btn = document.getElementById(btnId);
+                if(btn) {
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check text-green-400"></i> <span class="text-green-400">Copied!</span>';
+                    btn.classList.add('border-green-500/50', 'bg-green-500/10');
+                    btn.classList.remove('bg-white/5', 'hover:bg-white/10', 'hover:border-brand-glow', 'bg-brand-accent/20', 'hover:bg-brand-accent', 'border-brand-accent');
+                    
+                    // إرجاع الزر لشكله الأصلي بعد ثانيتين
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.classList.remove('border-green-500/50', 'bg-green-500/10');
+                        // نرجع الكلاسات المفقودة حسب مكان الزر (في الكرت أو في النافذة)
+                        if(btnId.includes('modal')) {
+                            btn.classList.add('bg-brand-accent/20', 'hover:bg-brand-accent', 'border-brand-accent');
+                        } else {
+                            btn.classList.add('bg-white/5', 'hover:bg-white/10', 'hover:border-brand-glow');
+                        }
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error("Copy failed:", err);
+                showToast('Failed to copy', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        };
+
+        // --- نظام النافذة المنبثقة (Modal System) ---
+        window.openModal = function(index) {
+            const project = window.filteredProjectsData[index];
+            if(!project) return;
+
+            const modal = document.getElementById('project-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            const actionType = project.actionType || 'github';
+            let actionHTML = '';
+            
+            if (actionType === 'copy') {
+                const modalBtnId = `modal-copy-btn-${index}`;
+                window.projectContents[modalBtnId] = project.copyContent; // تخزين كود النافذة
+                
+                // تنظيف الكود لعرضه بأمان في الواجهة
+                const safeContent = project.copyContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                actionHTML = `
+                    <div class="mt-2 flex-grow flex flex-col min-h-0">
+                        <p class="text-sm text-gray-400 mb-2 flex items-center gap-2"><i class="fas fa-code text-brand-accent"></i> Script Content:</p>
+                        <!-- تم تغيير whitespace-pre-wrap إلى whitespace-pre ليمنع النزول لسطر جديد تلقائياً -->
+                        <!-- وتم التأكد من وجود overflow-auto ليعمل السكرول الأفقي والعمودي معاً -->
+                        <div class="bg-[#0a0a0f] p-4 rounded-xl border border-white/5 font-mono text-xs text-blue-300 overflow-auto modal-scroll mb-4 flex-grow relative group/code">
+                            <pre class="whitespace-pre">${safeContent}</pre>
+                            <div class="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity">
+                                <span class="bg-black/80 text-[10px] text-gray-400 px-2 py-1 rounded">Read-only</span>
+                            </div>
+                        </div>
+
+                        <!-- تم إضافة أزرار التواصل هنا لصفحة النسخ -->
+                        <div class="mb-4 bg-black/30 p-4 rounded-xl border border-white/5">
+                            <p class="text-xs text-gray-400 mb-3 font-semibold">Connect & Follow:</p>
+                            <div class="flex gap-3">
+                                <a href="https://discord.gg/kT55J724BK" target="_blank" class="flex-1 py-2 rounded-lg bg-[#5865F2]/10 text-[#5865F2] border border-[#5865F2]/20 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all text-xl"><i class="fab fa-discord"></i></a>
+                                <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="flex-1 py-2 rounded-lg bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all text-xl"><i class="fab fa-youtube"></i></a>
+                                <a href="https://github.com/OYB0" target="_blank" class="flex-1 py-2 rounded-lg bg-white/5 text-white border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xl"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+
+                        <button id="${modalBtnId}" onclick="copyProjectContent('${modalBtnId}')" 
+                                class="w-full py-4 mt-auto bg-brand-accent/20 hover:bg-brand-accent text-white text-center rounded-xl font-bold transition-all text-sm border border-brand-accent hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] flex items-center justify-center gap-2 shrink-0">
+                            <i class="far fa-copy text-lg"></i> Copy Script to Clipboard
+                        </button>
+                    </div>
+                `;
+            } else {
+                actionHTML = `
+                    <div class="mt-4 flex-grow flex flex-col justify-end">
+                        <div class="mb-8 bg-black/30 p-5 rounded-xl border border-white/5">
+                            <p class="text-sm text-gray-400 mb-4 font-semibold">Connect & Follow:</p>
+                            <div class="flex gap-4">
+                                <a href="https://discord.gg/kT55J724BK" target="_blank" class="flex-1 py-2 rounded-lg bg-[#5865F2]/10 text-[#5865F2] border border-[#5865F2]/20 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all text-xl"><i class="fab fa-discord"></i></a>
+                                <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="flex-1 py-2 rounded-lg bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all text-xl"><i class="fab fa-youtube"></i></a>
+                                <a href="https://github.com/OYB0" target="_blank" class="flex-1 py-2 rounded-lg bg-white/5 text-white border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xl"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <a href="${project.url}" target="_blank" 
+                           class="w-full py-4 bg-brand-accent/20 hover:bg-brand-accent text-white text-center rounded-xl font-bold transition-all text-sm border border-brand-accent hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] flex items-center justify-center gap-2 mt-auto shrink-0">
+                            <i class="fab fa-github text-lg"></i> Open Repository on GitHub
+                        </a>
+                    </div>
+                `;
+            }
+
+            modalContent.innerHTML = `
+                <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-red-500 text-white rounded-full transition-colors backdrop-blur-md border border-white/10 shadow-lg group">
+                    <i class="fas fa-times group-hover:scale-110 transition-transform"></i>
+                </button>
+                
+                <div class="w-full md:w-1/2 bg-black p-4 sm:p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-white/5 min-h-[250px] relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent"></div>
+                    <img src="${project.imageUrl}" class="relative max-w-full max-h-[300px] md:max-h-[600px] object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]" onerror="this.src='https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';">
+                </div>
+                
+                <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col bg-brand-card max-h-[60vh] md:max-h-none overflow-y-auto modal-scroll">
+                    <div class="inline-block px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-xs font-mono text-blue-400 w-max mb-4 shadow-sm">
+                        ${project.badge}
+                    </div>
+                    <h3 class="text-2xl md:text-4xl font-extrabold text-white mb-2 leading-tight">${project.name}</h3>
+                    <p class="text-gray-400 text-sm mb-6 flex items-center gap-2"><i class="fas fa-folder-open text-gray-500"></i> ${project.mainCategory} Category</p>
+                    <div class="w-full h-px bg-gradient-to-r from-white/10 to-transparent mb-6"></div>
+                    ${actionHTML}
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            // تأخير بسيط للسماح للمتصفح برسم العنصر قبل بدء الانميشن
+            requestAnimationFrame(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            });
+            
+            // منع التمرير في الصفحة الخلفية
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeModal = function() {
+            const modal = document.getElementById('project-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = ''; // إرجاع التمرير
+            }, 300);
+        };
+        // ---------------------------------------------
+
+        let allProjects = [];
+        window.filteredProjectsData = []; // متغير عالمي للاحتفاظ بالمشاريع المعروضة حاليا للفهرسة
+
+        function loadManualProjects() {
             try {
                 if (typeof myProjectsData === 'undefined') {
                     throw new Error("Local data not found");
@@ -371,61 +508,71 @@
         }
 
         window.filterProjects = function(category) {
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            if (btn.getAttribute('data-cat') === category) {
-                btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-brand-accent bg-brand-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]";
-            } else {
-                btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white";
-            }
-        });
-        renderProjects(category);
-    };
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === category) {
+                    btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-brand-accent bg-brand-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]";
+                } else {
+                    btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white";
+                }
+            });
+            renderProjects(category);
+        };
 
-    function renderProjects(category) {
-        const container = document.getElementById('projects-container');
-        container.innerHTML = '';
-        window.projectContents = {}; // تصفير الأكواد عند كل عملية فلترة
+        function renderProjects(category) {
+            const container = document.getElementById('projects-container');
+            container.innerHTML = '';
+            window.projectContents = {}; // تصفير الأكواد عند كل عملية فلترة
 
-        const filtered = category === 'All' ? allProjects : allProjects.filter(p => p.mainCategory === category);
+            const filtered = category === 'All' ? allProjects : allProjects.filter(p => p.mainCategory === category);
+            window.filteredProjectsData = filtered; // حفظها لاستخدامها في النافذة المنبثقة
 
-        filtered.forEach((project, index) => {
-            // تحديد نوع الزر بناءً على actionType في projects.js
-            const actionType = project.actionType || 'github'; // الافتراضي github لو لم يتم تحديده
-            let buttonHTML = '';
-            
-            if (actionType === 'copy') {
-                const btnId = `copy-btn-${index}`;
-                window.projectContents[btnId] = project.copyContent; // تخزين الكود في الذاكرة بأمان
+            filtered.forEach((project, index) => {
+                // تحديد نوع الزر بناءً على actionType في projects.js
+                const actionType = project.actionType || 'github'; // الافتراضي github لو لم يتم تحديده
+                let buttonHTML = '';
                 
-                buttonHTML = `
-                    <button id="${btnId}" onclick="copyProjectContent('${btnId}')" 
-                            class="w-full py-3 bg-white/5 hover:bg-white/10 text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-glow flex items-center justify-center gap-2 cursor-pointer text-white">
-                        <i class="far fa-copy"></i> Copy Script
-                    </button>
-                `;
-            } else {
-                buttonHTML = `
-                    <a href="${project.url}" target="_blank" 
-                       class="w-full py-3 bg-white/5 hover:bg-brand-accent text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-accent flex items-center justify-center gap-2 text-white">
-                        <i class="fab fa-github"></i> View Repository
-                    </a>
-                `;
-            }
+                if (actionType === 'copy') {
+                    const btnId = `card-copy-btn-${index}`;
+                    window.projectContents[btnId] = project.copyContent; // تخزين الكود للزر الصغير
+                    
+                    buttonHTML = `
+                        <button id="${btnId}" onclick="event.stopPropagation(); copyProjectContent('${btnId}')" 
+                                class="w-full py-3 bg-white/5 hover:bg-white/10 text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-glow flex items-center justify-center gap-2 cursor-pointer text-white">
+                            <i class="far fa-copy"></i> Copy Script
+                        </button>
+                    `;
+                } else {
+                    buttonHTML = `
+                        <a href="${project.url}" target="_blank" onclick="event.stopPropagation();"
+                           class="w-full py-3 bg-white/5 hover:bg-brand-accent text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-accent flex items-center justify-center gap-2 text-white">
+                            <i class="fab fa-github"></i> View Repository
+                        </a>
+                    `;
+                }
 
-            // عرض النص الوصفي
-            const descriptionText = actionType === 'copy' ? "Click below to copy the script directly to your clipboard." : "Explore this manual entry project directly on GitHub.";
+                // عرض النص الوصفي
+                const descriptionText = actionType === 'copy' ? "Click below to copy or tap image to view script details." : "Explore this manual entry project directly on GitHub.";
 
                 const cardHTML = `
                 <div class="bg-brand-card rounded-2xl border border-white/5 card-hover relative overflow-hidden flex flex-col h-full group">
-                    <div class="h-48 w-full bg-black/50 relative overflow-hidden flex items-center justify-center border-b border-white/5">
-                        <img src="${project.imageUrl}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                    <!-- تم إضافة onclick وإضاءة عند التأشير -->
+                    <div class="h-48 w-full bg-black/50 relative overflow-hidden flex items-center justify-center border-b border-white/5 cursor-pointer group/img" onclick="openModal(${index})">
+                        <img src="${project.imageUrl}" class="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-110 group-hover/img:blur-[2px]" 
                              onerror="this.src='https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';">
-                        <div class="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-mono text-gray-300 border border-white/10 shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
+                        
+                        <!-- Overlay الافتتاح -->
+                        <div class="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm text-white flex items-center justify-center transform scale-50 group-hover/img:scale-100 transition-all duration-300 border border-white/20 shadow-lg">
+                                <i class="fas fa-expand text-xl"></i>
+                            </div>
+                        </div>
+
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-mono text-gray-300 border border-white/10 shadow-[0_4px_10px_rgba(0,0,0,0.5)] z-10">
                             ${project.badge}
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold text-white mb-2">${project.name}</h3>
+                        <h3 class="text-xl font-bold text-white mb-2 cursor-pointer hover:text-brand-accent transition-colors w-max" onclick="openModal(${index})">${project.name}</h3>
                         <p class="text-gray-400 mb-6 text-sm flex-grow">${descriptionText}</p>
                         ${buttonHTML}
                     </div>
