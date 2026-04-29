@@ -283,53 +283,65 @@
             container.appendChild(toast);
 
             // تفعيل حركة الظهور
-            requestAnimationFrame(() => {
-                toast.classList.remove('translate-y-10', 'opacity-0');
-            });
+        requestAnimationFrame(() => {
+            toast.classList.remove('translate-y-10', 'opacity-0');
+        });
 
-            // إخفاء وحذف بعد 3 ثواني
-            setTimeout(() => {
-                toast.classList.add('translate-y-10', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
+        // إخفاء وحذف بعد 3 ثواني
+        setTimeout(() => {
+            toast.classList.add('translate-y-10', 'opacity-0');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
 
-        // دالة نسخ الكود
-        window.copyProjectContent = function(content, btnId) {
-            // استخدام execCommand لضمان النسخ داخل iframes والمتصفحات المختلفة
-            const textArea = document.createElement("textarea");
-            textArea.value = content;
-            document.body.appendChild(textArea);
-            textArea.select();
-            
-            try {
-                document.execCommand('copy');
-                showToast('Copied to clipboard successfully!', 'success');
+    // دالة نسخ الكود
+    window.projectContents = {}; // لتخزين الأكواد وتفادي مشاكل الرموز في HTML
 
-                // تغيير شكل الزر لإعطاء تأثير بصري للمستخدم
-                const btn = document.getElementById(btnId);
-                if(btn) {
-                    const originalHTML = btn.innerHTML;
-                    btn.innerHTML = '<i class="fas fa-check text-green-400"></i> <span class="text-green-400">Copied!</span>';
-                    btn.classList.add('border-green-500/50');
-                    
-                    // إرجاع الزر لشكله الأصلي بعد ثانيتين
-                    setTimeout(() => {
-                        btn.innerHTML = originalHTML;
-                        btn.classList.remove('border-green-500/50');
-                    }, 2000);
-                }
-            } catch (err) {
-                console.error("Copy failed:", err);
-                showToast('Failed to copy', 'error');
+    window.copyProjectContent = function(btnId) {
+        const content = window.projectContents[btnId];
+        if (!content) return;
+
+        const textArea = document.createElement("textarea");
+        textArea.value = content;
+        
+        // جعل المربع غير مرئي لتفادي تشوه الصفحة
+        textArea.style.position = "fixed";
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.opacity = "0";
+        
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            document.execCommand('copy');
+            showToast('Copied to clipboard successfully!', 'success');
+
+            // تغيير شكل الزر لإعطاء تأثير بصري للمستخدم
+            const btn = document.getElementById(btnId);
+            if(btn) {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check text-green-400"></i> <span class="text-green-400">Copied!</span>';
+                btn.classList.add('border-green-500/50', 'bg-green-500/10');
+                
+                // إرجاع الزر لشكله الأصلي بعد ثانيتين
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('border-green-500/50', 'bg-green-500/10');
+                }, 2000);
             }
-            
-            document.body.removeChild(textArea);
-        };
+        } catch (err) {
+            console.error("Copy failed:", err);
+            showToast('Failed to copy', 'error');
+        }
+        
+        document.body.removeChild(textArea);
+    };
 
-        let allProjects = [];
+    let allProjects = [];
 
-        function loadManualProjects() {
+    function loadManualProjects() {
             try {
                 if (typeof myProjectsData === 'undefined') {
                     throw new Error("Local data not found");
@@ -359,48 +371,49 @@
         }
 
         window.filterProjects = function(category) {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                if (btn.getAttribute('data-cat') === category) {
-                    btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-brand-accent bg-brand-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]";
-                } else {
-                    btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white";
-                }
-            });
-            renderProjects(category);
-        };
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            if (btn.getAttribute('data-cat') === category) {
+                btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-brand-accent bg-brand-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]";
+            } else {
+                btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white";
+            }
+        });
+        renderProjects(category);
+    };
 
-        function renderProjects(category) {
-            const container = document.getElementById('projects-container');
-            container.innerHTML = '';
+    function renderProjects(category) {
+        const container = document.getElementById('projects-container');
+        container.innerHTML = '';
+        window.projectContents = {}; // تصفير الأكواد عند كل عملية فلترة
 
-            const filtered = category === 'All' ? allProjects : allProjects.filter(p => p.mainCategory === category);
+        const filtered = category === 'All' ? allProjects : allProjects.filter(p => p.mainCategory === category);
 
-            filtered.forEach((project, index) => {
-                // تحديد نوع الزر بناءً على actionType في projects.js
-                const actionType = project.actionType || 'github'; // الافتراضي github لو لم يتم تحديده
-                let buttonHTML = '';
+        filtered.forEach((project, index) => {
+            // تحديد نوع الزر بناءً على actionType في projects.js
+            const actionType = project.actionType || 'github'; // الافتراضي github لو لم يتم تحديده
+            let buttonHTML = '';
+            
+            if (actionType === 'copy') {
+                const btnId = `copy-btn-${index}`;
+                window.projectContents[btnId] = project.copyContent; // تخزين الكود في الذاكرة بأمان
                 
-                if (actionType === 'copy') {
-                    // تشفير النص لتفادي تعارض الأقواس في HTML
-                    const encodedContent = encodeURIComponent(project.copyContent || '');
-                    const btnId = `copy-btn-${index}`;
-                    buttonHTML = `
-                        <button id="${btnId}" onclick="copyProjectContent(decodeURIComponent('${encodedContent}'), '${btnId}')" 
-                                class="w-full py-3 bg-white/5 hover:bg-white/10 text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-glow flex items-center justify-center gap-2 cursor-pointer text-white">
-                            <i class="far fa-copy"></i> Copy Script
-                        </button>
-                    `;
-                } else {
-                    buttonHTML = `
-                        <a href="${project.url}" target="_blank" 
-                           class="w-full py-3 bg-white/5 hover:bg-brand-accent text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-accent flex items-center justify-center gap-2 text-white">
-                            <i class="fab fa-github"></i> View Repository
-                        </a>
-                    `;
-                }
+                buttonHTML = `
+                    <button id="${btnId}" onclick="copyProjectContent('${btnId}')" 
+                            class="w-full py-3 bg-white/5 hover:bg-white/10 text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-glow flex items-center justify-center gap-2 cursor-pointer text-white">
+                        <i class="far fa-copy"></i> Copy Script
+                    </button>
+                `;
+            } else {
+                buttonHTML = `
+                    <a href="${project.url}" target="_blank" 
+                       class="w-full py-3 bg-white/5 hover:bg-brand-accent text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-accent flex items-center justify-center gap-2 text-white">
+                        <i class="fab fa-github"></i> View Repository
+                    </a>
+                `;
+            }
 
-                // عرض النص الوصفي
-                const descriptionText = actionType === 'copy' ? "Click below to copy the script directly to your clipboard." : "Explore this manual entry project directly on GitHub.";
+            // عرض النص الوصفي
+            const descriptionText = actionType === 'copy' ? "Click below to copy the script directly to your clipboard." : "Explore this manual entry project directly on GitHub.";
 
                 const cardHTML = `
                 <div class="bg-brand-card rounded-2xl border border-white/5 card-hover relative overflow-hidden flex flex-col h-full group">
