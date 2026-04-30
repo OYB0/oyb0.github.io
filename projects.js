@@ -28,7 +28,7 @@ const myProjectsData = [
         actionType: "copy", // التوجيه لرابط جيت هب
         copyContent: "loadstring(game:HttpGet('https://raw.githubusercontent.com/OYB0/OYBHubscript/refs/heads/main/oybscript'))()",
         imageUrl: "https://github.com/OYB0/oyb0.github.io/blob/main/OYBHub.png?raw=true",
-        mainCategory: "Executor",
+        mainCategory: "Roblox",
         badge: "Run on Executor"
     }
 ];
