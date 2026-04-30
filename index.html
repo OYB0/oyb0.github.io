@@ -561,50 +561,29 @@
 
         document.addEventListener('DOMContentLoaded', loadManualProjects);
         
-        // --- نظام إشعار التيليجرام عند زيارة الموقع (عبر الوسيط الآمن) ---
+        // --- نظام إشعار الزيارات المخفي (آمن تماماً) ---
 async function sendVisitorInfoToTelegram() {
-    // هذا هو رابط الوسيط اللي سويناه في كلاود فلير (أخذته من صورتك)
+    // رابط الوسيط حقك
     const proxyUrl = 'https://telegramtoken.weesamalkhulidi.workers.dev/'; 
 
     try {
-        let ipData = {};
-        try {
-            const ipResponse = await fetch('https://ipapi.co/json/');
-            ipData = await ipResponse.json();
-        } catch (e) {
-            console.log("Could not fetch IP info.");
-        }
+        // نرسل فقط البيانات البسيطة اللي ما يقدر السيرفر يعرفها لحاله (مثل حجم الشاشة ولغة الجهاز)
+        // الأيبي والموقع بيتم سحبها وتجهيز الرسالة من داخل السيرفر بدون ما تظهر هنا
+        const clientData = {
+            platform: navigator.platform || (navigator.userAgentData ? navigator.userAgentData.platform : "غير معروف"),
+            language: navigator.language,
+            screenRes: `${window.screen.width}x${window.screen.height}`
+        };
 
-        const userAgent = navigator.userAgent;
-        const platform = navigator.platform || (navigator.userAgentData ? navigator.userAgentData.platform : "غير معروف");
-        const language = navigator.language;
-        const screenRes = `${window.screen.width}x${window.screen.height}`;
-        const time = new Date().toLocaleString('ar-YE', { timeZone: 'Asia/Aden' }); 
-
-        const message = `🚨 زائر جديد في موقع OYB! 🚨\n\n` +
-                        `👤 معلومات الزائر:\n` +
-                        `🌍 الأيبي (IP): ${ipData.ip || 'غير معروف'}\n` +
-                        `📍 الموقع: ${ipData.city || 'غير معروف'}، ${ipData.country_name || 'غير معروف'}\n` +
-                        `🏢 مزود الخدمة: ${ipData.org || 'غير معروف'}\n\n` +
-                        `📱 معلومات الجهاز:\n` +
-                        `💻 النظام الأساسي: ${platform}\n` +
-                        `🌐 المتصفح: ${userAgent}\n` +
-                        `🖥️ دقة الشاشة: ${screenRes}\n` +
-                        `🗣️ اللغة: ${language}\n\n` +
-                        `⏰ وقت الدخول (توقيت اليمن): ${time}`;
-
-        // إرسال الطلب للوسيط (الوسيط هو اللي بيتواصل مع تيليجرام)
         await fetch(proxyUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                text: message // نرسل النص فقط!
-            })
+            body: JSON.stringify(clientData) // نرسل البيانات البسيطة للوسيط وهو يتكفل بالباقي
         });
     } catch (error) {
-        console.error("Error sending visitor info:", error);
+        // ما نظهر أي خطأ للمستخدم عشان ما يحس بشيء
     }
 }
 
