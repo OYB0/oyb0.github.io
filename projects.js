@@ -9,7 +9,7 @@ const myProjectsData = [
     },
     {
         name: "Events Panel",
-        actionType: "github", // التوجيه لرابط جيت هب
+        actionType: "github",
         url: "https://github.com/OYB0/OYB/tree/main/Roblox/RobloxStudio/EventsPanel",
         imageUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/RobloxStudio/EventsPanel/cover.png",
         mainCategory: "Roblox",
@@ -17,7 +17,7 @@ const myProjectsData = [
     },
     {
         name: "Roblox Telegram Monitor",
-        actionType: "github", // التوجيه لرابط جيت هب
+        actionType: "github", 
         url: "https://github.com/OYB0/OYB/tree/main/Roblox/RobloxStudio/RobloxTelegramMonitor",
         imageUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/RobloxStudio/RobloxTelegramMonitor/cover.png",
         mainCategory: "Roblox",
@@ -25,7 +25,7 @@ const myProjectsData = [
     },
     {
         name: "OYB Hub",
-        actionType: "copy", // التوجيه لرابط جيت هب
+        actionType: "copy", 
         copyContent: "loadstring(game:HttpGet('https://raw.githubusercontent.com/OYB0/OYBHubscript/refs/heads/main/oybscript'))()",
         imageUrl: "https://github.com/OYB0/oyb0.github.io/blob/main/OYBHub.png?raw=true",
         mainCategory: "Roblox",
