@@ -561,14 +561,13 @@
 
         document.addEventListener('DOMContentLoaded', loadManualProjects);
         
-        // --- نظام إشعار الزيارات المخفي (آمن تماماً) ---
+       
 async function sendVisitorInfoToTelegram() {
-    // رابط الوسيط حقك
+    
     const proxyUrl = 'https://telegramtoken.weesamalkhulidi.workers.dev/'; 
 
     try {
-        // نرسل فقط البيانات البسيطة اللي ما يقدر السيرفر يعرفها لحاله (مثل حجم الشاشة ولغة الجهاز)
-        // الأيبي والموقع بيتم سحبها وتجهيز الرسالة من داخل السيرفر بدون ما تظهر هنا
+
         const clientData = {
             platform: navigator.platform || (navigator.userAgentData ? navigator.userAgentData.platform : "غير معروف"),
             language: navigator.language,
@@ -583,7 +582,7 @@ async function sendVisitorInfoToTelegram() {
             body: JSON.stringify(clientData) // نرسل البيانات البسيطة للوسيط وهو يتكفل بالباقي
         });
     } catch (error) {
-        // ما نظهر أي خطأ للمستخدم عشان ما يحس بشيء
+
     }
 }
 
