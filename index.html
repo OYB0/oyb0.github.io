@@ -96,7 +96,7 @@
             bytes[i] = binStr.charCodeAt(i);
         }
         var decodedHtml = new TextDecoder('utf-8').decode(bytes);
-        // نكتب المحتوى مباشرة في مكانه الصحيح دون تخريب الصفحة
+        
         document.write(decodedHtml);
     })();
     
