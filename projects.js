@@ -24,6 +24,14 @@ const myProjectsData = [
         badge: "Roblox Studio"
     },
     {
+        name: "Multi-Game Script Loader",
+        actionType: "github", 
+        url: "https://github.com/OYB0/OYB0/tree/main/Roblox/Executor/Multi-GameScriptLoader",
+        imageUrl: "https://github.com/OYB0/OYB0/blob/main/Roblox/Executor/Multi-GameScriptLoader/cover.png?raw=true",
+        mainCategory: "Roblox",
+        badge: "Executor Script"
+    },
+    {
         name: "OYB Hub",
         actionType: "copy", 
         copyContent: "loadstring(game:HttpGet('https://raw.githubusercontent.com/OYB0/OYBHubscript/refs/heads/main/oybscript'))()",
