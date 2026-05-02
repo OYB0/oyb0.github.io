@@ -7,17 +7,13 @@
     <!-- SEO Tags -->
     <title>OYB DEVELOPER | Official Software & Scripts</title>
     <meta name="description" content="The official website of OYB DEVELOPER. Providing secure, optimized, and scalable systems for Roblox, AI, and Desktop Applications.">
-    <meta name="keywords" content="OYB, OYB DEVELOPER, Software Developer, Roblox Scripts, Luau, API Integration, Python, AI Systems">
-    <meta name="author" content="OYB DEVELOPER (Wissam)">
     
     <link rel="icon" type="image/png" href="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true">
     
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome for Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
@@ -52,7 +48,7 @@
         }
     </script>
     <style>
-        body { background-color: #0a0a0f; color: #e2e8f0; overflow-x: hidden; }
+        body { background-color: #0a0a0f; color: #e2e8f0; overflow-x: hidden; transition: background-color 0.3s; }
         .bg-grid {
             background-size: 40px 40px;
             background-image: 
@@ -79,10 +75,15 @@
         }
         .fade-in-section.is-visible { opacity: 1; transform: none; }
         
-        /* Modal Scrollbar */
         .modal-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
         .modal-scroll::-webkit-scrollbar-track { background: transparent; }
         .modal-scroll::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+
+        /* Lite Mode CSS - Disables all heavy effects */
+        body.lite-mode .animate-float, body.lite-mode .animate-pulse-slow, body.lite-mode .animate-spin { animation: none !important; }
+        body.lite-mode .blur-\\[128px\\] { display: none !important; }
+        body.lite-mode * { backdrop-filter: none !important; box-shadow: none !important; transition: none !important; }
+        body.lite-mode .bg-black\\/50 { background-color: #000 !important; }
     </style>
 </head>
 <body class="bg-brand-dark antialiased bg-grid relative selection:bg-brand-accent selection:text-white">
@@ -99,15 +100,49 @@
                     <img src="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true" alt="OYB Logo" class="w-10 h-10 rounded-xl shadow-[0_0_15px_rgba(59,130,246,0.5)] object-cover">
                     <span class="font-bold text-2xl tracking-wider text-white">OYB<span class="text-brand-accent">.</span></span>
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="#about" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                        <a href="#projects" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
-                        <a href="https://github.com/OYB0/OYB" target="_blank" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm font-medium transition-all backdrop-blur-sm border border-white/10 flex items-center gap-2">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" data-i18n="nav_home" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                    <a href="#about" data-i18n="nav_about" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                    <a href="#projects" data-i18n="nav_projects" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
+                    
+                    <div class="h-6 w-px bg-white/20"></div>
+
+                    <!-- Lite Mode Toggle -->
+                    <button onclick="toggleLiteMode()" id="liteToggleBtn" class="text-gray-400 hover:text-white transition-colors" title="Toggle Lite Mode">
+                        <i class="fas fa-bolt"></i>
+                    </button>
+
+                    <!-- Language Selector - Changed to Click instead of Hover -->
+                    <div class="relative inline-block text-left" id="language-dropdown-container">
+                        <button type="button" onclick="toggleLanguageMenu()" class="inline-flex justify-center items-center w-full rounded-md border border-white/10 shadow-sm px-4 py-2 bg-white/5 text-sm font-medium text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0a0a0f] focus:ring-brand-accent transition-colors" id="language-menu-button" aria-expanded="false" aria-haspopup="true">
+                            <i class="fas fa-globe mr-2"></i>
+                            <span id="current-lang-display">English</span>
+                            <i class="fas fa-chevron-down ml-2 text-xs transition-transform duration-200" id="language-chevron"></i>
+                        </button>
+                        
+                        <div id="language-menu" class="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-[0_4px_20px_rgba(0,0,0,0.5)] bg-[#13131a] border border-white/10 ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-50 transform opacity-0 scale-95 transition-all duration-200" role="menu" aria-orientation="vertical" aria-labelledby="language-menu-button" tabindex="-1">
+                            <div class="py-1" role="none">
+                                <a href="#" onclick="changeLanguage('en'); toggleLanguageMenu(); event.preventDefault();" class="text-gray-300 block px-4 py-2 text-sm hover:bg-brand-accent/20 hover:text-white transition-colors" role="menuitem" tabindex="-1">English</a>
+                                <a href="#" onclick="changeLanguage('ar'); toggleLanguageMenu(); event.preventDefault();" class="text-gray-300 block px-4 py-2 text-sm hover:bg-brand-accent/20 hover:text-white transition-colors" role="menuitem" tabindex="-1">العربية</a>
+                            </div>
+                        </div>
                     </div>
+
+                    <a href="https://github.com/OYB0/OYB" target="_blank" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm font-medium transition-all backdrop-blur-sm border border-white/10 flex items-center gap-2">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+
+                <!-- Mobile controls -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleLiteMode()" class="text-gray-400 hover:text-white"><i class="fas fa-bolt"></i></button>
+                    <!-- Language Selector Mobile -->
+                    <select id="langSelectorMobile" onchange="changeLanguage(this.value)" class="bg-[#13131a] border border-white/10 text-white text-xs rounded-lg p-1.5 focus:ring-brand-accent focus:border-brand-accent outline-none">
+                        <option value="en">EN</option>
+                        <option value="ar">AR</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -121,24 +156,24 @@
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
                 </span>
-                Software Developer | AI Systems & Automation
+                <span data-i18n="hero_badge">Software Developer | AI Systems & Automation</span>
             </div>
             
             <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
-                Welcome to <br class="md:hidden">
+                <span data-i18n="hero_title_1">Welcome to</span> <br class="md:hidden">
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500 glow-text">OYB DEVELOPER</span>
             </h1>
             
-            <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto mb-10 leading-relaxed">
+            <p data-i18n="hero_desc" class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto mb-10 leading-relaxed">
                 Building secure, optimized, and scalable systems across the software ecosystem. From advanced AI tools and Desktop apps to comprehensive Roblox architectures.
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="#projects" class="px-8 py-4 bg-brand-accent hover:bg-blue-600 text-white rounded-xl font-semibold transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] flex items-center justify-center gap-2">
-                    <i class="fas fa-rocket"></i> Explore Projects
+                    <i class="fas fa-rocket"></i> <span data-i18n="btn_explore">Explore Projects</span>
                 </a>
                 <a href="https://discord.gg/kT55J724BK" target="_blank" class="px-8 py-4 bg-[#5865F2]/10 border border-[#5865F2]/30 hover:bg-[#5865F2]/20 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2">
-                    <i class="fab fa-discord text-[#5865F2]"></i> Join Community
+                    <i class="fab fa-discord text-[#5865F2]"></i> <span data-i18n="btn_join">Join Community</span>
                 </a>
             </div>
 
@@ -155,22 +190,22 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-section">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-3xl font-bold mb-6">Built for <span class="text-brand-accent">Performance</span>.</h2>
-                    <p class="text-gray-400 mb-6 leading-relaxed">
+                    <h2 class="text-3xl font-bold mb-6"><span data-i18n="about_title_1">Built for</span> <span class="text-brand-accent" data-i18n="about_title_2">Performance.</span></h2>
+                    <p data-i18n="about_desc" class="text-gray-400 mb-6 leading-relaxed">
                         I specialize in developing advanced architectures, secure authentication protocols, and seamless API integrations. My main goal is to build robust, scalable solutions.
                     </p>
                     <div class="space-y-4">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 text-xl"><i class="fas fa-code"></i></div>
                             <div>
-                                <h4 class="font-semibold text-white">Languages</h4>
-                                <p class="text-sm text-gray-500">Python, Luau, JavaScript, HTML/CSS, Flask</p>
+                                <h4 class="font-semibold text-white" data-i18n="about_lang">Languages</h4>
+                                <p class="text-sm text-gray-500">Python, Luau, JavaScript, HTML/CSS, C++</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xl"><i class="fas fa-server"></i></div>
                             <div>
-                                <h4 class="font-semibold text-white">Specialties</h4>
+                                <h4 class="font-semibold text-white" data-i18n="about_spec">Specialties</h4>
                                 <p class="text-sm text-gray-500">AI Integration, Secure Auth, Backend & Desktop Apps</p>
                             </div>
                         </div>
@@ -203,8 +238,8 @@
     <section id="projects" class="py-24 relative min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-section">
             <div class="text-center mb-10">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="text-brand-accent">Projects & Systems</span></h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Explore a curated collection of my work. Everything here is managed manually for maximum stability and speed.</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-i18n="projects_title">My Projects & Systems</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="projects_desc">Explore a curated collection of my work. Everything here is managed manually for maximum stability and speed.</p>
             </div>
 
             <!-- Tabs -->
@@ -215,7 +250,7 @@
             <!-- Loader -->
             <div id="loading-spinner" class="flex flex-col items-center justify-center py-10 hidden">
                 <div class="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-4"></div>
-                <p class="text-brand-accent animate-pulse">Loading manual database...</p>
+                <p class="text-brand-accent animate-pulse" data-i18n="loading_db">Loading manual database...</p>
             </div>
 
             <!-- Grid -->
@@ -223,7 +258,7 @@
                 <!-- Cards will be injected by JS -->
             </div>
             
-            <div id="error-message" class="hidden text-center text-red-400 p-4 border border-red-500/20 bg-red-500/10 rounded-xl max-w-2xl mx-auto mt-8">
+            <div id="error-message" class="hidden text-center text-red-400 p-4 border border-red-500/20 bg-red-500/10 rounded-xl max-w-2xl mx-auto mt-8" data-i18n="error_db">
                 Failed to load local database.
             </div>
         </div>
@@ -236,7 +271,7 @@
                 <img src="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true" alt="OYB Logo" class="w-8 h-8 rounded-lg object-cover">
                 <span class="font-bold text-xl tracking-wider">OYB<span class="text-brand-accent">.</span></span>
             </div>
-            <p class="text-gray-500 mb-6 max-w-md mx-auto">Elevating the software development ecosystem with premium solutions.</p>
+            <p class="text-gray-500 mb-6 max-w-md mx-auto" data-i18n="footer_desc">Elevating the software development ecosystem with premium solutions.</p>
             
             <div class="flex justify-center gap-6 mb-10">
                 <a href="https://discord.gg/kT55J724BK" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all"><i class="fab fa-discord"></i></a>
@@ -246,7 +281,13 @@
             </div>
             
             <div class="text-gray-600 text-sm border-t border-white/5 pt-8">
-                &copy; <span id="year"></span> OYB DEVELOPER. All rights reserved.
+                &copy; <span id="year"></span> <span data-i18n="rights">OYB DEVELOPER. All rights reserved.</span>
+                <br>
+                <!-- Privacy Notice -->
+                <p class="mt-4 text-[10px] text-gray-500 max-w-2xl mx-auto flex items-center justify-center gap-1">
+                    <i class="fas fa-shield-alt text-brand-accent/50"></i> 
+                    <span data-i18n="privacy_notice">For security and analytics purposes, basic non-identifiable visitor data (such as OS and screen resolution) is collected securely. No personal data is stored.</span>
+                </p>
             </div>
         </div>
     </footer>
@@ -255,7 +296,7 @@
     <div id="project-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer" onclick="closeModal()"></div>
         
-        <div id="modal-content" class="relative bg-brand-card w-full max-w-5xl max-h-[95vh] rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.15)] overflow-hidden flex flex-col md:flex-row transform scale-95 transition-transform duration-300">
+        <div id="modal-content" class="relative bg-brand-card w-full max-w-5xl h-[90vh] md:h-auto md:max-h-[90vh] rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.15)] overflow-hidden flex flex-col md:flex-row transform scale-95 transition-transform duration-300">
             <!-- Content Injected via JS -->
         </div>
     </div>
@@ -263,12 +304,86 @@
     <!-- Toast Container -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- External Projects Script -->
+    <!-- External Scripts -->
+    <script src="translations.js"></script>
     <script src="projects.js"></script>
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
+        // --- Language Dropdown Logic ---
+        function toggleLanguageMenu() {
+            const menu = document.getElementById('language-menu');
+            const chevron = document.getElementById('language-chevron');
+            const isHidden = menu.classList.contains('hidden');
+
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                // Small delay to allow display block to apply before animating opacity/scale
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0', 'scale-95');
+                    menu.classList.add('opacity-100', 'scale-100');
+                    chevron.classList.add('rotate-180');
+                }, 10);
+            } else {
+                menu.classList.remove('opacity-100', 'scale-100');
+                menu.classList.add('opacity-0', 'scale-95');
+                chevron.classList.remove('rotate-180');
+                // Wait for animation to finish before hiding
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 200);
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const container = document.getElementById('language-dropdown-container');
+            const menu = document.getElementById('language-menu');
+            if (container && !container.contains(event.target) && !menu.classList.contains('hidden')) {
+                toggleLanguageMenu();
+            }
+        });
+
+        // Language System
+        let currentLang = 'en';
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Update display text for desktop dropdown
+            document.getElementById('current-lang-display').textContent = lang === 'en' ? 'English' : 'العربية';
+            
+            // Update mobile select
+            document.getElementById('langSelectorMobile').value = lang;
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            renderFilterTabs();
+            renderProjects(document.querySelector('.filter-btn.bg-brand-accent')?.getAttribute('data-cat') || 'All');
+        }
+
+        // Lite Mode System
+        let isLiteMode = false;
+        function toggleLiteMode() {
+            isLiteMode = !isLiteMode;
+            if(isLiteMode) {
+                document.body.classList.add('lite-mode');
+                showToast(translations[currentLang]["perf_mode"] + " ON", 'info');
+                document.getElementById('liteToggleBtn').classList.add('text-yellow-400');
+            } else {
+                document.body.classList.remove('lite-mode');
+                showToast(translations[currentLang]["perf_mode"] + " OFF", 'info');
+                document.getElementById('liteToggleBtn').classList.remove('text-yellow-400');
+            }
+        }
+
+        // Navbar Scroll Effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) navbar.classList.add('bg-black/50', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-lg');
@@ -284,7 +399,6 @@
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            
             const bgColor = type === 'success' ? 'bg-green-500/20' : 'bg-blue-500/20';
             const borderColor = type === 'success' ? 'border-green-500/50' : 'border-blue-500/50';
             const textColor = type === 'success' ? 'text-green-400' : 'text-blue-400';
@@ -292,143 +406,260 @@
 
             toast.className = `px-5 py-3 rounded-xl shadow-lg backdrop-blur-md border ${borderColor} ${bgColor} text-sm font-semibold text-white transform transition-all duration-300 translate-y-10 opacity-0 flex items-center gap-3`;
             toast.innerHTML = `<i class="fas ${icon} ${textColor} text-lg"></i> <span>${message}</span>`;
-            
             container.appendChild(toast);
 
-            requestAnimationFrame(() => {
-                toast.classList.remove('translate-y-10', 'opacity-0');
-            });
-
+            requestAnimationFrame(() => toast.classList.remove('translate-y-10', 'opacity-0'));
             setTimeout(() => {
                 toast.classList.add('translate-y-10', 'opacity-0');
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
 
-        // Copy System
+        // Deep Linking (URL Routing)
+        function updateURL(projectName) {
+            if(projectName) {
+                const safeName = encodeURIComponent(projectName.replace(/\s+/g, '-'));
+                window.history.pushState({project: projectName}, '', `?project=${safeName}`);
+            } else {
+                window.history.pushState({}, '', window.location.pathname);
+            }
+        }
+
+        function checkURLForProject() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const pName = urlParams.get('project');
+            if(pName && allProjects.length > 0) {
+                const decodedName = decodeURIComponent(pName).replace(/-/g, ' ');
+                const projIndex = allProjects.findIndex(p => p.name.toLowerCase() === decodedName.toLowerCase());
+                if(projIndex !== -1) {
+                    setTimeout(() => openModal(projIndex), 500);
+                }
+            }
+        }
+
+        // --- COPY & FETCH SYSTEMS ---
         window.projectContents = {}; 
+        window.currentFetchedScript = ""; 
 
         window.copyProjectContent = function(btnId) {
             const content = window.projectContents[btnId];
             if (!content) return;
+            executeCopy(content, btnId);
+        };
 
+        window.copyFetchedScript = function(btnId) {
+            const content = window.currentFetchedScript;
+            if (!content) return showToast('No script content loaded yet.', 'error');
+            executeCopy(content, btnId);
+        };
+
+        function executeCopy(content, btnId) {
             const textArea = document.createElement("textarea");
             textArea.value = content;
             textArea.style.position = "fixed";
-            textArea.style.top = "0";
-            textArea.style.left = "0";
             textArea.style.opacity = "0";
-            
             document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
+            textArea.focus(); textArea.select();
             
             try {
                 document.execCommand('copy');
-                showToast('Copied to clipboard successfully!', 'success');
+                showToast(translations[currentLang]["copied"], 'success');
 
                 const btn = document.getElementById(btnId);
                 if(btn) {
                     const originalHTML = btn.innerHTML;
-                    btn.innerHTML = '<i class="fas fa-check text-green-400"></i> <span class="text-green-400">Copied!</span>';
+                    btn.innerHTML = `<i class="fas fa-check text-green-400"></i> <span class="text-green-400">${translations[currentLang]["copied"]}</span>`;
                     btn.classList.add('border-green-500/50', 'bg-green-500/10');
-                    btn.classList.remove('bg-white/5', 'hover:bg-white/10', 'hover:border-brand-glow', 'bg-brand-accent/20', 'hover:bg-brand-accent', 'border-brand-accent');
+                    btn.classList.remove('bg-brand-accent/20', 'hover:bg-brand-accent', 'border-brand-accent');
                     
                     setTimeout(() => {
                         btn.innerHTML = originalHTML;
                         btn.classList.remove('border-green-500/50', 'bg-green-500/10');
-                        if(btnId.includes('modal')) {
-                            btn.classList.add('bg-brand-accent/20', 'hover:bg-brand-accent', 'border-brand-accent');
-                        } else {
-                            btn.classList.add('bg-white/5', 'hover:bg-white/10', 'hover:border-brand-glow');
-                        }
+                        btn.classList.add('bg-brand-accent/20', 'hover:bg-brand-accent', 'border-brand-accent');
                     }, 2000);
                 }
-            } catch (err) {
-                console.error("Copy failed:", err);
-                showToast('Failed to copy', 'error');
-            }
-            
+            } catch (err) { showToast('Failed to copy', 'error'); }
             document.body.removeChild(textArea);
+        }
+
+        window.loadProjectScript = async function(url, btnElement) {
+            const viewer = document.getElementById('script-viewer-container');
+            const content = document.getElementById('script-viewer-content');
+            const loader = document.getElementById('script-loading');
+            const copyBtn = document.getElementById('modal-dynamic-copy-btn');
+            
+            document.querySelectorAll('.script-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-accent', 'text-white', 'border-brand-accent');
+                btn.classList.add('bg-white/5', 'text-gray-400', 'border-white/10');
+            });
+            if (btnElement) {
+                btnElement.classList.remove('bg-white/5', 'text-gray-400', 'border-white/10');
+                btnElement.classList.add('bg-brand-accent', 'text-white', 'border-brand-accent');
+            }
+
+            viewer.classList.add('hidden');
+            copyBtn.classList.add('hidden');
+            loader.classList.remove('hidden');
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network error');
+                const text = await response.text();
+                
+                content.innerHTML = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                window.currentFetchedScript = text; 
+                
+                loader.classList.add('hidden');
+                viewer.classList.remove('hidden');
+                copyBtn.classList.remove('hidden');
+            } catch (error) {
+                loader.classList.add('hidden');
+                content.innerHTML = "<span class='text-red-400'>Error loading script.</span>";
+                viewer.classList.remove('hidden');
+            }
         };
 
-        // Modal System
+        // --- MODAL SYSTEM ---
         window.openModal = function(index) {
             const project = window.filteredProjectsData[index];
             if(!project) return;
+            
+            updateURL(project.name); // Deep Link Update
 
             const modal = document.getElementById('project-modal');
             const modalContent = document.getElementById('modal-content');
+            const t = translations[currentLang];
             
-            const actionType = project.actionType || 'github';
+            const actionType = project.actionType || 'view';
             let actionHTML = '';
             
+            const connectHTML = `
+                <div class="mb-4 bg-black/30 p-3 rounded-xl border border-white/5 shrink-0 mt-4">
+                    <p class="text-xs text-gray-400 mb-2 font-semibold">${t.modal_connect}</p>
+                    <div class="flex gap-3">
+                        <a href="https://discord.gg/kT55J724BK" target="_blank" class="flex-1 py-1.5 rounded-lg bg-[#5865F2]/10 text-[#5865F2] border border-[#5865F2]/20 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all"><i class="fab fa-discord"></i></a>
+                        <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="flex-1 py-1.5 rounded-lg bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all"><i class="fab fa-youtube"></i></a>
+                        <a href="https://github.com/OYB0" target="_blank" class="flex-1 py-1.5 rounded-lg bg-white/5 text-white border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            `;
+
             if (actionType === 'copy') {
                 const modalBtnId = `modal-copy-btn-${index}`;
                 window.projectContents[modalBtnId] = project.copyContent; 
                 const safeContent = project.copyContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
                 actionHTML = `
-                    <div class="mt-2 flex-grow flex flex-col min-h-0">
-                        <p class="text-sm text-gray-400 mb-2 flex items-center gap-2"><i class="fas fa-code text-brand-accent"></i> Script Content:</p>
-                        <div class="bg-[#0a0a0f] p-4 rounded-xl border border-white/5 font-mono text-xs text-blue-300 overflow-auto modal-scroll mb-4 flex-grow relative group/code">
-                            <pre class="whitespace-pre">${safeContent}</pre>
+                    <div class="mt-2 flex-grow flex flex-col min-h-0 h-full">
+                        <p class="text-sm text-gray-400 mb-2 flex items-center gap-2 shrink-0"><i class="fas fa-code text-brand-accent"></i> ${t.modal_script_content}</p>
+                        
+                        <div class="bg-[#0a0a0f] p-4 rounded-xl border border-white/5 font-mono text-xs text-blue-300 overflow-y-auto modal-scroll flex-grow relative group/code h-48 md:h-64 lg:h-80">
+                            <pre class="whitespace-pre-wrap break-all md:whitespace-pre md:break-normal">${safeContent}</pre>
                             <div class="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity">
-                                <span class="bg-black/80 text-[10px] text-gray-400 px-2 py-1 rounded">Read-only</span>
+                                <span class="bg-black/80 text-[10px] text-gray-400 px-2 py-1 rounded">${t.modal_readonly}</span>
                             </div>
                         </div>
 
-                        <div class="mb-4 bg-black/30 p-4 rounded-xl border border-white/5">
-                            <p class="text-xs text-gray-400 mb-3 font-semibold">Connect & Follow:</p>
-                            <div class="flex gap-3">
-                                <a href="https://discord.gg/kT55J724BK" target="_blank" class="flex-1 py-2 rounded-lg bg-[#5865F2]/10 text-[#5865F2] border border-[#5865F2]/20 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all text-xl"><i class="fab fa-discord"></i></a>
-                                <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="flex-1 py-2 rounded-lg bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all text-xl"><i class="fab fa-youtube"></i></a>
-                                <a href="https://github.com/OYB0" target="_blank" class="flex-1 py-2 rounded-lg bg-white/5 text-white border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xl"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
+                        ${connectHTML}
 
                         <button id="${modalBtnId}" onclick="copyProjectContent('${modalBtnId}')" 
-                                class="w-full py-4 mt-auto bg-brand-accent/20 hover:bg-brand-accent text-white text-center rounded-xl font-bold transition-all text-sm border border-brand-accent hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] flex items-center justify-center gap-2 shrink-0">
-                            <i class="far fa-copy text-lg"></i> Copy Script to Clipboard
+                                class="w-full py-3 bg-brand-accent/20 hover:bg-brand-accent text-white text-center rounded-xl font-bold transition-all text-sm border border-brand-accent flex items-center justify-center gap-2 shrink-0">
+                            <i class="far fa-copy"></i> ${t.modal_copy_clip}
                         </button>
                     </div>
                 `;
-            } else {
+            } else if (actionType === 'view') {
+                let scriptsSelector = '';
+                if (project.scripts && project.scripts.length > 1) {
+                    scriptsSelector = `
+                        <div class="flex-shrink-0 flex gap-2 overflow-x-auto mb-2 pb-2 modal-scroll">
+                            ${project.scripts.map((s, i) => `
+                                <button onclick="loadProjectScript('${s.rawUrl}', this)" id="script-tab-${i}" class="script-tab-btn px-4 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 text-xs font-semibold whitespace-nowrap transition-colors">
+                                    ${s.name}
+                                </button>
+                            `).join('')}
+                        </div>
+                    `;
+                } else if (project.scripts && project.scripts.length === 1) {
+                    scriptsSelector = `<p class="text-sm text-gray-400 mb-2 shrink-0"><i class="fas fa-file-code text-brand-accent"></i> ${project.scripts[0].name}</p>`;
+                } else {
+                    scriptsSelector = `<p class="text-sm text-red-400 mb-2 shrink-0">${t.modal_no_scripts}</p>`;
+                }
+
+                // Add View Repo button next to scripts if repoUrl exists
+                let topBar = scriptsSelector;
+                if(project.repoUrl) {
+                    topBar = `
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2 shrink-0 border-b border-white/5 pb-2">
+                            <div class="w-full md:w-auto overflow-hidden">${scriptsSelector.replace('mb-2 pb-2', '')}</div>
+                            <a href="${project.repoUrl}" target="_blank" class="shrink-0 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs text-white flex items-center gap-2 transition-colors w-max">
+                                <i class="fab fa-github"></i> ${t.modal_view_repo}
+                            </a>
+                        </div>
+                    `;
+                }
+
                 actionHTML = `
-                    <div class="mt-4 flex-grow flex flex-col justify-end">
-                        <div class="mb-8 bg-black/30 p-5 rounded-xl border border-white/5">
-                            <p class="text-sm text-gray-400 mb-4 font-semibold">Connect & Follow:</p>
-                            <div class="flex gap-4">
-                                <a href="https://discord.gg/kT55J724BK" target="_blank" class="flex-1 py-2 rounded-lg bg-[#5865F2]/10 text-[#5865F2] border border-[#5865F2]/20 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all text-xl"><i class="fab fa-discord"></i></a>
-                                <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="flex-1 py-2 rounded-lg bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all text-xl"><i class="fab fa-youtube"></i></a>
-                                <a href="https://github.com/OYB0" target="_blank" class="flex-1 py-2 rounded-lg bg-white/5 text-white border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xl"><i class="fab fa-github"></i></a>
+                    <div class="mt-2 flex-grow flex flex-col min-h-0 h-full">
+                        ${topBar}
+
+                        <div id="script-loading" class="flex justify-center items-center py-8 hidden shrink-0 h-48 md:h-64 lg:h-80">
+                            <div class="w-8 h-8 border-4 border-brand-accent/30 border-t-brand-accent rounded-full animate-spin"></div>
+                        </div>
+
+                        <div id="script-viewer-container" class="bg-[#0a0a0f] p-4 rounded-xl border border-white/5 font-mono text-xs text-blue-300 overflow-y-auto modal-scroll flex-grow relative group/code hidden h-48 md:h-64 lg:h-80">
+                            <pre id="script-viewer-content" class="whitespace-pre-wrap break-all md:whitespace-pre md:break-normal"></pre>
+                            <div class="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity">
+                                <span class="bg-black/80 text-[10px] text-gray-400 px-2 py-1 rounded">${t.modal_readonly}</span>
                             </div>
                         </div>
-                        <a href="${project.url}" target="_blank" 
-                           class="w-full py-4 bg-brand-accent/20 hover:bg-brand-accent text-white text-center rounded-xl font-bold transition-all text-sm border border-brand-accent hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] flex items-center justify-center gap-2 mt-auto shrink-0">
-                            <i class="fab fa-github text-lg"></i> Open Repository on GitHub
-                        </a>
+
+                        ${connectHTML}
+
+                        <button id="modal-dynamic-copy-btn" onclick="copyFetchedScript('modal-dynamic-copy-btn')" 
+                                class="hidden w-full py-3 bg-brand-accent/20 hover:bg-brand-accent text-white text-center rounded-xl font-bold transition-all text-sm border border-brand-accent flex items-center justify-center gap-2 shrink-0 mt-4">
+                            <i class="far fa-copy"></i> ${t.modal_copy_clip}
+                        </button>
+                    </div>
+                `;
+            } else if (actionType === 'link') {
+                const linkData = project.linkData || { url: '#', btnText: 'Open Link' };
+                let iconElement = '<i class="fas fa-external-link-alt text-lg"></i>';
+                if (linkData.iconImage) iconElement = `<img src="${linkData.iconImage}" alt="icon" class="w-6 h-6 object-contain">`;
+                else if (linkData.iconClass) iconElement = `<i class="${linkData.iconClass} text-lg"></i>`;
+
+                actionHTML = `
+                    <div class="mt-2 flex-grow flex flex-col justify-between h-full">
+                        <div></div> <!-- Spacer -->
+                        
+                        <div class="flex flex-col gap-4">
+                            ${connectHTML}
+                            <a href="${linkData.url}" target="_blank" 
+                                    class="w-full py-4 bg-brand-accent/20 hover:bg-brand-accent text-white text-center rounded-xl font-bold transition-all text-sm border border-brand-accent flex items-center justify-center gap-3 shrink-0">
+                                ${iconElement} <span class="tracking-wide">${linkData.btnText}</span>
+                            </a>
+                        </div>
                     </div>
                 `;
             }
 
             modalContent.innerHTML = `
-                <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-red-500 text-white rounded-full transition-colors backdrop-blur-md border border-white/10 shadow-lg group">
+                <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center bg-black/50 hover:bg-red-500 text-white rounded-full transition-colors backdrop-blur-md border border-white/10 shadow-lg group">
                     <i class="fas fa-times group-hover:scale-110 transition-transform"></i>
                 </button>
                 
-                <div class="w-full md:w-1/2 bg-black p-4 sm:p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-white/5 min-h-[250px] relative">
+                <div class="w-full h-48 md:h-auto md:w-2/5 bg-black p-4 flex items-center justify-center border-b md:border-b-0 md:border-r border-white/5 relative shrink-0">
                     <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent"></div>
-                    <img src="${project.imageUrl}" class="relative max-w-full max-h-[300px] md:max-h-[600px] object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]" onerror="this.src='https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';">
+                    <img src="${project.imageUrl}" class="relative max-w-full max-h-[300px] object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]" onerror="this.src='https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';">
                 </div>
                 
-                <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col bg-brand-card max-h-[60vh] md:max-h-none overflow-y-auto modal-scroll">
-                    <div class="inline-block px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-xs font-mono text-blue-400 w-max mb-4 shadow-sm">
+                <div class="w-full md:w-3/5 p-5 md:p-8 flex flex-col bg-brand-card overflow-hidden h-full max-h-[90vh]">
+                    <div class="inline-block px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-[10px] font-mono text-blue-400 w-max mb-3 shrink-0">
                         ${project.badge}
                     </div>
-                    <h3 class="text-2xl md:text-4xl font-extrabold text-white mb-2 leading-tight">${project.name}</h3>
-                    <p class="text-gray-400 text-sm mb-6 flex items-center gap-2"><i class="fas fa-folder-open text-gray-500"></i> ${project.mainCategory} Category</p>
-                    <div class="w-full h-px bg-gradient-to-r from-white/10 to-transparent mb-6"></div>
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-1 shrink-0">${project.name}</h3>
+                    <p class="text-gray-400 text-xs mb-4 flex items-center gap-2 shrink-0"><i class="fas fa-folder-open text-gray-500"></i> ${t.modal_category}: ${project.mainCategory}</p>
+                    
                     ${actionHTML}
                 </div>
             `;
@@ -438,6 +669,13 @@
                 modal.classList.remove('opacity-0');
                 modalContent.classList.remove('scale-95');
                 modalContent.classList.add('scale-100');
+                
+                if (actionType === 'view' && project.scripts && project.scripts.length > 0) {
+                    setTimeout(() => {
+                        const firstBtn = document.getElementById('script-tab-0');
+                        loadProjectScript(project.scripts[0].rawUrl, firstBtn);
+                    }, 50);
+                }
             });
             document.body.style.overflow = 'hidden';
         };
@@ -453,6 +691,8 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
                 document.body.style.overflow = ''; 
+                window.currentFetchedScript = ""; 
+                updateURL(null); // Remove deep link
             }, 300);
         };
 
@@ -462,16 +702,14 @@
 
         function loadManualProjects() {
             try {
-                if (typeof myProjectsData === 'undefined') {
-                    throw new Error("Local data not found");
-                }
-
+                if (typeof myProjectsData === 'undefined') throw new Error("Local data not found");
                 allProjects = myProjectsData;
-                renderFilterTabs();
-                renderProjects('All');
+                
+                // Initialize default lang
+                changeLanguage('en'); 
+                checkURLForProject(); // Check deep link
                 
             } catch (error) {
-                console.error(error);
                 document.getElementById('error-message').classList.remove('hidden');
             }
         }
@@ -507,31 +745,34 @@
 
             const filtered = category === 'All' ? allProjects : allProjects.filter(p => p.mainCategory === category);
             window.filteredProjectsData = filtered; 
+            const t = translations[currentLang];
 
             filtered.forEach((project, index) => {
-                const actionType = project.actionType || 'github'; 
+                const actionType = project.actionType || 'view'; 
                 let buttonHTML = '';
                 
                 if (actionType === 'copy') {
                     const btnId = `card-copy-btn-${index}`;
                     window.projectContents[btnId] = project.copyContent; 
-                    
                     buttonHTML = `
                         <button id="${btnId}" onclick="event.stopPropagation(); copyProjectContent('${btnId}')" 
                                 class="w-full py-3 bg-white/5 hover:bg-white/10 text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-glow flex items-center justify-center gap-2 cursor-pointer text-white">
-                            <i class="far fa-copy"></i> Copy Script
+                            <i class="far fa-copy"></i> ${t.btn_copy}
                         </button>
                     `;
                 } else {
                     buttonHTML = `
-                        <a href="${project.url}" target="_blank" onclick="event.stopPropagation();"
+                        <button onclick="event.stopPropagation(); openModal(${index})"
                            class="w-full py-3 bg-white/5 hover:bg-brand-accent text-center rounded-xl font-semibold transition-all text-sm border border-white/5 hover:border-brand-accent flex items-center justify-center gap-2 text-white">
-                            <i class="fab fa-github"></i> View Repository
-                        </a>
+                            <i class="fas fa-eye"></i> ${t.btn_view}
+                        </button>
                     `;
                 }
 
-                const descriptionText = actionType === 'copy' ? "Click below to copy or tap image to view script details." : "Explore this manual entry project directly on GitHub.";
+                let descriptionText = "";
+                if (actionType === 'copy') descriptionText = t.desc_copy;
+                else if (actionType === 'view') descriptionText = t.desc_view;
+                else if (actionType === 'link') descriptionText = t.desc_link;
 
                 const cardHTML = `
                 <div class="bg-brand-card rounded-2xl border border-white/5 card-hover relative overflow-hidden flex flex-col h-full group">
@@ -561,33 +802,28 @@
 
         document.addEventListener('DOMContentLoaded', loadManualProjects);
         
-       
-async function sendVisitorInfoToTelegram() {
-    
-    const proxyUrl = 'https://telegramtoken.weesamalkhulidi.workers.dev/'; 
+        async function sendVisitorInfoToTelegram() {
+            const proxyUrl = 'https://telegramtoken.weesamalkhulidi.workers.dev/'; 
+            try {
+                const clientData = {
+                    platform: navigator.platform || (navigator.userAgentData ? navigator.userAgentData.platform : "غير معروف"),
+                    language: navigator.language,
+                    screenRes: `${window.screen.width}x${window.screen.height}`
+                };
 
-    try {
+                await fetch(proxyUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(clientData) 
+                });
+            } catch (error) {
+                // Silent fail
+            }
+        }
 
-        const clientData = {
-            platform: navigator.platform || (navigator.userAgentData ? navigator.userAgentData.platform : "غير معروف"),
-            language: navigator.language,
-            screenRes: `${window.screen.width}x${window.screen.height}`
-        };
-
-        await fetch(proxyUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(clientData) // نرسل البيانات البسيطة للوسيط وهو يتكفل بالباقي
-        });
-    } catch (error) {
-
-    }
-}
-
-window.addEventListener('DOMContentLoaded', sendVisitorInfoToTelegram);
-        
+        window.addEventListener('DOMContentLoaded', sendVisitorInfoToTelegram);
     </script>
 </body>
 </html>
