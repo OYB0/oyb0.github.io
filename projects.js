@@ -2,7 +2,8 @@ const myProjectsData = [
     {
         name: "Key System",
         actionType: "view",
-        repoUrl: "https://github.com/OYB0/OYB/tree/main/Roblox/Executor/KeySystem", // تمت إضافة رابط المستودع ليظهر زر View Repo
+        repoUrl: "https://github.com/OYB0/OYB/tree/main/Roblox/Executor/KeySystem", 
+        videoUrl: "https://youtu.be/nhj-zguVLhI", // تمت إضافة رابط الفيديو
         scripts: [
             { name: "KeySystemUi.lua", rawUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/Executor/KeySystem/KeySystemUi.lua" },
             { name: "SecretCode.lua", rawUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/Executor/KeySystem/SecretCode.lua" }
@@ -13,11 +14,12 @@ const myProjectsData = [
     },
     {
         name: "Events Panel",
-        actionType: "link", // نوع جديد للروابط الخارجية والبرامج
+        actionType: "link", 
+        videoUrl: "https://youtu.be/Zx0taEAkBBM", // تمت إضافة رابط الفيديو
         linkData: {
             url: "https://create.roblox.com/store/asset/89740483068098/OYB-Events-Panel",
             btnText: "View on Roblox Studio",
-            iconImage: "https://github.com/OYB0/oyb0.github.io/blob/main/RobloxStudio.png?raw=true" // صورة مصغرة تظهر في الزر
+            iconImage: "https://github.com/OYB0/oyb0.github.io/blob/main/RobloxStudio.png?raw=true" 
         },
         imageUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/RobloxStudio/EventsPanel/cover.png",
         mainCategory: "Roblox",
@@ -27,6 +29,7 @@ const myProjectsData = [
         name: "Roblox Telegram Monitor",
         actionType: "view", 
         repoUrl: "https://github.com/OYB0/OYB/tree/main/Roblox/RobloxStudio/RobloxTelegramMonitor",
+        videoUrl: "https://youtu.be/l_PF8hEVKnI", // تمت إضافة رابط الفيديو
         scripts: [
             { name: "TheScript.lua", rawUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/RobloxStudio/RobloxTelegramMonitor/TheScript.lua" }
         ],
@@ -38,6 +41,7 @@ const myProjectsData = [
         name: "Multi-Game Script Loader",
         actionType: "view", 
         repoUrl: "https://github.com/OYB0/OYB0/tree/main/Roblox/Executor/Multi-GameScriptLoader",
+        videoUrl: "https://youtu.be/klf9EnL23So", // تمت إضافة رابط الفيديو
         scripts: [
             { name: "TheScript.lua", rawUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/Executor/Multi-GameScriptLoader/TheScript.lua" }
         ],
