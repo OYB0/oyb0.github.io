@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth overflow-x-hidden w-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO Tags -->
     <title>OYB DEVELOPER | Official Software & Scripts</title>
@@ -48,7 +48,7 @@
         }
     </script>
     <style>
-        body { background-color: #0a0a0f; color: #e2e8f0; overflow-x: hidden; transition: background-color 0.3s; }
+        body { background-color: #0a0a0f; color: #e2e8f0; overflow-x: hidden; transition: background-color 0.3s; width: 100%; position: relative; }
         .bg-grid {
             background-size: 40px 40px;
             background-image: 
@@ -82,144 +82,148 @@
         /* Lite Mode CSS - Disables all heavy effects */
         body.lite-mode .animate-float, body.lite-mode .animate-pulse-slow, body.lite-mode .animate-spin { animation: none !important; }
         body.lite-mode .blur-\\[128px\\] { display: none !important; }
+        body.lite-mode .blur-\\[100px\\] { display: none !important; }
         body.lite-mode * { backdrop-filter: none !important; box-shadow: none !important; transition: none !important; }
         body.lite-mode .bg-black\\/50 { background-color: #000 !important; }
     </style>
 </head>
-<body class="bg-brand-dark antialiased bg-grid relative selection:bg-brand-accent selection:text-white">
+<body class="bg-brand-dark antialiased bg-grid selection:bg-brand-accent selection:text-white overflow-x-hidden w-full">
 
-    <!-- Blur Orbs -->
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-pulse-slow -z-10"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-pulse-slow delay-1000 -z-10"></div>
+    <!-- Wrapper to ensure no horizontal scroll -->
+    <div class="relative w-full overflow-hidden min-h-screen flex flex-col">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 flex items-center gap-3">
-                    <img src="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true" alt="OYB Logo" class="w-10 h-10 rounded-xl shadow-[0_0_15px_rgba(59,130,246,0.5)] object-cover">
-                    <span class="font-bold text-2xl tracking-wider text-white">OYB<span class="text-brand-accent">.</span></span>
-                </div>
-                
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="#home" data-i18n="nav_home" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                    <a href="#about" data-i18n="nav_about" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                    <a href="#projects" data-i18n="nav_projects" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
+        <!-- Blur Orbs (Fixed sizes for mobile to prevent overflow) -->
+        <div class="absolute top-0 left-[10%] md:left-1/4 w-64 h-64 md:w-96 md:h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-[100px] md:blur-[128px] opacity-20 animate-pulse-slow -z-10 pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-[10%] md:right-1/4 w-64 h-64 md:w-96 md:h-96 bg-indigo-600 rounded-full mix-blend-multiply filter blur-[100px] md:blur-[128px] opacity-20 animate-pulse-slow delay-1000 -z-10 pointer-events-none"></div>
+
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <div class="flex-shrink-0 flex items-center gap-3">
+                        <img src="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true" alt="OYB Logo" class="w-10 h-10 rounded-xl shadow-[0_0_15px_rgba(59,130,246,0.5)] object-cover">
+                        <span class="font-bold text-2xl tracking-wider text-white">OYB<span class="text-brand-accent">.</span></span>
+                    </div>
                     
-                    <div class="h-6 w-px bg-white/20"></div>
-
-                    <!-- Lite Mode Toggle -->
-                    <button onclick="toggleLiteMode()" id="liteToggleBtn" class="text-gray-400 hover:text-white transition-colors" title="Toggle Lite Mode">
-                        <i class="fas fa-bolt"></i>
-                    </button>
-
-                    <!-- Language Selector - Changed to Click instead of Hover -->
-                    <div class="relative inline-block text-left" id="language-dropdown-container">
-                        <button type="button" onclick="toggleLanguageMenu()" class="inline-flex justify-center items-center w-full rounded-md border border-white/10 shadow-sm px-4 py-2 bg-white/5 text-sm font-medium text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0a0a0f] focus:ring-brand-accent transition-colors" id="language-menu-button" aria-expanded="false" aria-haspopup="true">
-                            <i class="fas fa-globe mr-2"></i>
-                            <span id="current-lang-display">English</span>
-                            <i class="fas fa-chevron-down ml-2 text-xs transition-transform duration-200" id="language-chevron"></i>
-                        </button>
+                    <!-- Desktop Nav -->
+                    <div class="hidden md:flex items-center space-x-6">
+                        <a href="#home" data-i18n="nav_home" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#about" data-i18n="nav_about" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#projects" data-i18n="nav_projects" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
                         
-                        <div id="language-menu" class="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-[0_4px_20px_rgba(0,0,0,0.5)] bg-[#13131a] border border-white/10 ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-50 transform opacity-0 scale-95 transition-all duration-200" role="menu" aria-orientation="vertical" aria-labelledby="language-menu-button" tabindex="-1">
-                            <div class="py-1" role="none">
-                                <a href="#" onclick="changeLanguage('en'); toggleLanguageMenu(); event.preventDefault();" class="text-gray-300 block px-4 py-2 text-sm hover:bg-brand-accent/20 hover:text-white transition-colors" role="menuitem" tabindex="-1">English</a>
-                                <a href="#" onclick="changeLanguage('ar'); toggleLanguageMenu(); event.preventDefault();" class="text-gray-300 block px-4 py-2 text-sm hover:bg-brand-accent/20 hover:text-white transition-colors" role="menuitem" tabindex="-1">العربية</a>
+                        <div class="h-6 w-px bg-white/20"></div>
+
+                        <!-- Lite Mode Toggle -->
+                        <button onclick="toggleLiteMode()" id="liteToggleBtn" class="text-gray-400 hover:text-white transition-colors" title="Toggle Lite Mode">
+                            <i class="fas fa-bolt"></i>
+                        </button>
+
+                        <!-- Language Selector - Changed to Click instead of Hover -->
+                        <div class="relative inline-block text-left" id="language-dropdown-container">
+                            <button type="button" onclick="toggleLanguageMenu()" class="inline-flex justify-center items-center w-full rounded-md border border-white/10 shadow-sm px-4 py-2 bg-white/5 text-sm font-medium text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0a0a0f] focus:ring-brand-accent transition-colors" id="language-menu-button" aria-expanded="false" aria-haspopup="true">
+                                <i class="fas fa-globe mr-2"></i>
+                                <span id="current-lang-display">English</span>
+                                <i class="fas fa-chevron-down ml-2 text-xs transition-transform duration-200" id="language-chevron"></i>
+                            </button>
+                            
+                            <div id="language-menu" class="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-[0_4px_20px_rgba(0,0,0,0.5)] bg-[#13131a] border border-white/10 ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-50 transform opacity-0 scale-95 transition-all duration-200" role="menu" aria-orientation="vertical" aria-labelledby="language-menu-button" tabindex="-1">
+                                <div class="py-1" role="none">
+                                    <a href="#" onclick="changeLanguage('en'); toggleLanguageMenu(); event.preventDefault();" class="text-gray-300 block px-4 py-2 text-sm hover:bg-brand-accent/20 hover:text-white transition-colors" role="menuitem" tabindex="-1">English</a>
+                                    <a href="#" onclick="changeLanguage('ar'); toggleLanguageMenu(); event.preventDefault();" class="text-gray-300 block px-4 py-2 text-sm hover:bg-brand-accent/20 hover:text-white transition-colors" role="menuitem" tabindex="-1">العربية</a>
+                                </div>
                             </div>
                         </div>
+
+                        <a href="https://github.com/OYB0/OYB" target="_blank" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm font-medium transition-all backdrop-blur-sm border border-white/10 flex items-center gap-2">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
                     </div>
 
-                    <a href="https://github.com/OYB0/OYB" target="_blank" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm font-medium transition-all backdrop-blur-sm border border-white/10 flex items-center gap-2">
-                        <i class="fab fa-github"></i> GitHub
+                    <!-- Mobile controls -->
+                    <div class="md:hidden flex items-center gap-3">
+                        <button onclick="toggleLiteMode()" class="text-gray-400 hover:text-white"><i class="fas fa-bolt"></i></button>
+                        <!-- Language Selector Mobile -->
+                        <select id="langSelectorMobile" onchange="changeLanguage(this.value)" class="bg-[#13131a] border border-white/10 text-white text-xs rounded-lg p-1.5 focus:ring-brand-accent focus:border-brand-accent outline-none">
+                            <option value="en">EN</option>
+                            <option value="ar">AR</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex flex-col justify-center min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center w-full">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-8 animate-float text-xs sm:text-sm">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                    </span>
+                    <span data-i18n="hero_badge" class="break-words">Software Developer | AI Systems & Automation</span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 break-words">
+                    <span data-i18n="hero_title_1">Welcome to</span> <br class="md:hidden">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500 glow-text">OYB DEVELOPER</span>
+                </h1>
+                
+                <p data-i18n="hero_desc" class="mt-4 max-w-2xl text-base sm:text-lg md:text-xl text-gray-400 mx-auto mb-10 leading-relaxed px-2">
+                    Building secure, optimized, and scalable systems across the software ecosystem. From advanced AI tools and Desktop apps to comprehensive Roblox architectures.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center px-4">
+                    <a href="#projects" class="px-8 py-4 bg-brand-accent hover:bg-blue-600 text-white rounded-xl font-semibold transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] flex items-center justify-center gap-2">
+                        <i class="fas fa-rocket"></i> <span data-i18n="btn_explore">Explore Projects</span>
+                    </a>
+                    <a href="https://discord.gg/kT55J724BK" target="_blank" class="px-8 py-4 bg-[#5865F2]/10 border border-[#5865F2]/30 hover:bg-[#5865F2]/20 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2">
+                        <i class="fab fa-discord text-[#5865F2]"></i> <span data-i18n="btn_join">Join Community</span>
                     </a>
                 </div>
 
-                <!-- Mobile controls -->
-                <div class="md:hidden flex items-center gap-4">
-                    <button onclick="toggleLiteMode()" class="text-gray-400 hover:text-white"><i class="fas fa-bolt"></i></button>
-                    <!-- Language Selector Mobile -->
-                    <select id="langSelectorMobile" onchange="changeLanguage(this.value)" class="bg-[#13131a] border border-white/10 text-white text-xs rounded-lg p-1.5 focus:ring-brand-accent focus:border-brand-accent outline-none">
-                        <option value="en">EN</option>
-                        <option value="ar">AR</option>
-                    </select>
+                <div class="mt-12 flex justify-center gap-6">
+                    <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="text-gray-500 hover:text-[#FF0000] text-2xl transition-colors"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/oyb0i" target="_blank" class="text-gray-500 hover:text-[#E4405F] text-2xl transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com/OYB0" target="_blank" class="text-gray-500 hover:text-white text-2xl transition-colors"><i class="fab fa-github"></i></a>
                 </div>
             </div>
-        </div>
-    </nav>
+        </section>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex flex-col justify-center min-h-screen">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-8 animate-float">
-                <span class="relative flex h-3 w-3">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-                </span>
-                <span data-i18n="hero_badge">Software Developer | AI Systems & Automation</span>
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
-                <span data-i18n="hero_title_1">Welcome to</span> <br class="md:hidden">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500 glow-text">OYB DEVELOPER</span>
-            </h1>
-            
-            <p data-i18n="hero_desc" class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto mb-10 leading-relaxed">
-                Building secure, optimized, and scalable systems across the software ecosystem. From advanced AI tools and Desktop apps to comprehensive Roblox architectures.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#projects" class="px-8 py-4 bg-brand-accent hover:bg-blue-600 text-white rounded-xl font-semibold transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] flex items-center justify-center gap-2">
-                    <i class="fas fa-rocket"></i> <span data-i18n="btn_explore">Explore Projects</span>
-                </a>
-                <a href="https://discord.gg/kT55J724BK" target="_blank" class="px-8 py-4 bg-[#5865F2]/10 border border-[#5865F2]/30 hover:bg-[#5865F2]/20 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2">
-                    <i class="fab fa-discord text-[#5865F2]"></i> <span data-i18n="btn_join">Join Community</span>
-                </a>
-            </div>
-
-            <div class="mt-12 flex justify-center gap-6">
-                <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="text-gray-500 hover:text-[#FF0000] text-2xl transition-colors"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.instagram.com/oyb0i" target="_blank" class="text-gray-500 hover:text-[#E4405F] text-2xl transition-colors"><i class="fab fa-instagram"></i></a>
-                <a href="https://github.com/OYB0" target="_blank" class="text-gray-500 hover:text-white text-2xl transition-colors"><i class="fab fa-github"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tech Stack / About -->
-    <section id="about" class="py-20 border-y border-white/5 bg-black/20 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-section">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-3xl font-bold mb-6"><span data-i18n="about_title_1">Built for</span> <span class="text-brand-accent" data-i18n="about_title_2">Performance.</span></h2>
-                    <p data-i18n="about_desc" class="text-gray-400 mb-6 leading-relaxed">
-                        I specialize in developing advanced architectures, secure authentication protocols, and seamless API integrations. My main goal is to build robust, scalable solutions.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 text-xl"><i class="fas fa-code"></i></div>
-                            <div>
-                                <h4 class="font-semibold text-white" data-i18n="about_lang">Languages</h4>
-                                <p class="text-sm text-gray-500">Python, Luau, JavaScript, HTML/CSS, C++</p>
+        <!-- Tech Stack / About -->
+        <section id="about" class="py-20 border-y border-white/5 bg-black/20 backdrop-blur-md w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-section">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-6"><span data-i18n="about_title_1">Built for</span> <span class="text-brand-accent" data-i18n="about_title_2">Performance.</span></h2>
+                        <p data-i18n="about_desc" class="text-gray-400 mb-6 leading-relaxed">
+                            I specialize in developing advanced architectures, secure authentication protocols, and seamless API integrations. My main goal is to build robust, scalable solutions.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 shrink-0 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 text-xl"><i class="fas fa-code"></i></div>
+                                <div>
+                                    <h4 class="font-semibold text-white" data-i18n="about_lang">Languages</h4>
+                                    <p class="text-sm text-gray-500">Python, Luau, JavaScript, HTML/CSS, C++</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xl"><i class="fas fa-server"></i></div>
-                            <div>
-                                <h4 class="font-semibold text-white" data-i18n="about_spec">Specialties</h4>
-                                <p class="text-sm text-gray-500">AI Integration, Secure Auth, Backend & Desktop Apps</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 shrink-0 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xl"><i class="fas fa-server"></i></div>
+                                <div>
+                                    <h4 class="font-semibold text-white" data-i18n="about_spec">Specialties</h4>
+                                    <p class="text-sm text-gray-500">AI Integration, Secure Auth, Backend & Desktop Apps</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="code-snippet p-6 rounded-xl font-mono text-sm shadow-2xl relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span class="text-gray-500 text-xs ml-2">oyb_engine.py</span>
-                    </div>
-                    <pre class="text-gray-300 overflow-x-auto"><code><span class="text-purple-400">class</span> <span class="text-blue-400">OYBSystem</span>:
+                    <div class="code-snippet p-4 sm:p-6 rounded-xl font-mono text-xs sm:text-sm shadow-2xl relative overflow-hidden group max-w-full">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="text-gray-500 text-xs ml-2">oyb_engine.py</span>
+                        </div>
+                        <pre class="text-gray-300 overflow-x-auto modal-scroll max-w-full pb-2"><code><span class="text-purple-400">class</span> <span class="text-blue-400">OYBSystem</span>:
     <span class="text-purple-400">def</span> <span class="text-blue-400">__init__</span>(self):
         self.status = <span class="text-green-400">"Online"</span>
         self.version = <span class="text-green-400">"2026.1"</span>
@@ -229,74 +233,76 @@
 
 <span class="text-purple-400">if</span> __name__ == <span class="text-green-400">"__main__"</span>:
     OYBSystem().deploy()</code></pre>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-24 relative min-h-screen">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-section">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-i18n="projects_title">My Projects & Systems</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="projects_desc">Explore a curated collection of my work. Everything here is managed manually for maximum stability and speed.</p>
-            </div>
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 relative flex-grow w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-section">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4" data-i18n="projects_title">My Projects & Systems</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="projects_desc">Explore a curated collection of my work. Everything here is managed manually for maximum stability and speed.</p>
+                </div>
 
-            <!-- Tabs -->
-            <div id="filter-tabs" class="flex flex-wrap justify-center gap-3 mb-10">
-                <!-- Will be injected by JS -->
-            </div>
+                <!-- Tabs -->
+                <div id="filter-tabs" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+                    <!-- Will be injected by JS -->
+                </div>
 
-            <!-- Loader -->
-            <div id="loading-spinner" class="flex flex-col items-center justify-center py-10 hidden">
-                <div class="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-4"></div>
-                <p class="text-brand-accent animate-pulse" data-i18n="loading_db">Loading manual database...</p>
-            </div>
+                <!-- Loader -->
+                <div id="loading-spinner" class="flex flex-col items-center justify-center py-10 hidden">
+                    <div class="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-4"></div>
+                    <p class="text-brand-accent animate-pulse" data-i18n="loading_db">Loading manual database...</p>
+                </div>
 
-            <!-- Grid -->
-            <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Cards will be injected by JS -->
+                <!-- Grid -->
+                <div id="projects-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
+                    <!-- Cards will be injected by JS -->
+                </div>
+                
+                <div id="error-message" class="hidden text-center text-red-400 p-4 border border-red-500/20 bg-red-500/10 rounded-xl max-w-2xl mx-auto mt-8" data-i18n="error_db">
+                    Failed to load local database.
+                </div>
             </div>
-            
-            <div id="error-message" class="hidden text-center text-red-400 p-4 border border-red-500/20 bg-red-500/10 rounded-xl max-w-2xl mx-auto mt-8" data-i18n="error_db">
-                Failed to load local database.
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="border-t border-white/5 bg-black/40 pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-section">
-            <div class="flex justify-center items-center gap-2 mb-6">
-                <img src="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true" alt="OYB Logo" class="w-8 h-8 rounded-lg object-cover">
-                <span class="font-bold text-xl tracking-wider">OYB<span class="text-brand-accent">.</span></span>
+        <!-- Footer -->
+        <footer class="border-t border-white/5 bg-black/40 pt-16 pb-8 w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-section">
+                <div class="flex justify-center items-center gap-2 mb-6">
+                    <img src="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true" alt="OYB Logo" class="w-8 h-8 rounded-lg object-cover">
+                    <span class="font-bold text-xl tracking-wider">OYB<span class="text-brand-accent">.</span></span>
+                </div>
+                <p class="text-gray-500 mb-6 max-w-md mx-auto px-4" data-i18n="footer_desc">Elevating the software development ecosystem with premium solutions.</p>
+                
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mb-10">
+                    <a href="https://discord.gg/kT55J724BK" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all"><i class="fab fa-discord"></i></a>
+                    <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all"><i class="fab fa-youtube"></i></a>
+                    <a href="https://github.com/OYB0" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/oyb0i" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#E4405F] hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
+                </div>
+                
+                <div class="text-gray-600 text-sm border-t border-white/5 pt-8">
+                    &copy; <span id="year"></span> <span data-i18n="rights">OYB DEVELOPER. All rights reserved.</span>
+                    <br>
+                    <!-- Privacy Notice -->
+                    <p class="mt-4 text-[10px] text-gray-500 max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 text-center px-4">
+                        <i class="fas fa-shield-alt text-brand-accent/50 text-lg sm:text-base"></i> 
+                        <span data-i18n="privacy_notice">For security and analytics purposes, basic non-identifiable visitor data (such as OS and screen resolution) is collected securely. No personal data is stored.</span>
+                    </p>
+                </div>
             </div>
-            <p class="text-gray-500 mb-6 max-w-md mx-auto" data-i18n="footer_desc">Elevating the software development ecosystem with premium solutions.</p>
-            
-            <div class="flex justify-center gap-6 mb-10">
-                <a href="https://discord.gg/kT55J724BK" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all"><i class="fab fa-discord"></i></a>
-                <a href="https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all"><i class="fab fa-youtube"></i></a>
-                <a href="https://github.com/OYB0" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><i class="fab fa-github"></i></a>
-                <a href="https://www.instagram.com/oyb0i" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#E4405F] hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
-            </div>
-            
-            <div class="text-gray-600 text-sm border-t border-white/5 pt-8">
-                &copy; <span id="year"></span> <span data-i18n="rights">OYB DEVELOPER. All rights reserved.</span>
-                <br>
-                <!-- Privacy Notice -->
-                <p class="mt-4 text-[10px] text-gray-500 max-w-2xl mx-auto flex items-center justify-center gap-1">
-                    <i class="fas fa-shield-alt text-brand-accent/50"></i> 
-                    <span data-i18n="privacy_notice">For security and analytics purposes, basic non-identifiable visitor data (such as OS and screen resolution) is collected securely. No personal data is stored.</span>
-                </p>
-            </div>
-        </div>
-    </footer>
+        </footer>
+
+    </div> <!-- End Wrapper -->
 
     <!-- Project Modal -->
-    <div id="project-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300 w-full">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer" onclick="closeModal()"></div>
         
-        <div id="modal-content" class="relative bg-brand-card w-full max-w-5xl h-[90vh] md:h-auto md:max-h-[90vh] rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.15)] overflow-hidden flex flex-col md:flex-row transform scale-95 transition-transform duration-300">
+        <div id="modal-content" class="relative bg-brand-card w-full max-w-5xl h-[90vh] md:h-auto md:max-h-[90vh] rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.15)] overflow-hidden flex flex-col md:flex-row transform scale-95 transition-transform duration-300 mx-auto">
             <!-- Content Injected via JS -->
         </div>
     </div>
@@ -363,7 +369,9 @@
                 }
             });
             
-            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            // Note for User (Weesam): I removed the RTL direction modification here to keep layout straight.
+            // No more document.documentElement.dir = ... so the UI stays stable and natural.
+            
             renderFilterTabs();
             renderProjects(document.querySelector('.filter-btn.bg-brand-accent')?.getAttribute('data-cat') || 'All');
         }
@@ -555,7 +563,7 @@
                         
                         <div class="bg-[#0a0a0f] p-4 rounded-xl border border-white/5 font-mono text-xs text-blue-300 overflow-y-auto modal-scroll flex-grow relative group/code h-48 md:h-64 lg:h-80">
                             <pre class="whitespace-pre-wrap break-all md:whitespace-pre md:break-normal">${safeContent}</pre>
-                            <div class="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity">
+                            <div class="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity hidden md:block">
                                 <span class="bg-black/80 text-[10px] text-gray-400 px-2 py-1 rounded">${t.modal_readonly}</span>
                             </div>
                         </div>
@@ -572,9 +580,9 @@
                 let scriptsSelector = '';
                 if (project.scripts && project.scripts.length > 1) {
                     scriptsSelector = `
-                        <div class="flex-shrink-0 flex gap-2 overflow-x-auto mb-2 pb-2 modal-scroll">
+                        <div class="flex-shrink-0 flex gap-2 overflow-x-auto mb-2 pb-2 modal-scroll w-full">
                             ${project.scripts.map((s, i) => `
-                                <button onclick="loadProjectScript('${s.rawUrl}', this)" id="script-tab-${i}" class="script-tab-btn px-4 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 text-xs font-semibold whitespace-nowrap transition-colors">
+                                <button onclick="loadProjectScript('${s.rawUrl}', this)" id="script-tab-${i}" class="script-tab-btn px-4 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 text-xs font-semibold whitespace-nowrap transition-colors flex-shrink-0">
                                     ${s.name}
                                 </button>
                             `).join('')}
@@ -590,8 +598,8 @@
                 let topBar = scriptsSelector;
                 if(project.repoUrl) {
                     topBar = `
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2 shrink-0 border-b border-white/5 pb-2">
-                            <div class="w-full md:w-auto overflow-hidden">${scriptsSelector.replace('mb-2 pb-2', '')}</div>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2 shrink-0 border-b border-white/5 pb-2">
+                            <div class="w-full sm:w-auto overflow-hidden">${scriptsSelector.replace('mb-2 pb-2', '')}</div>
                             <a href="${project.repoUrl}" target="_blank" class="shrink-0 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs text-white flex items-center gap-2 transition-colors w-max">
                                 <i class="fab fa-github"></i> ${t.modal_view_repo}
                             </a>
@@ -609,7 +617,7 @@
 
                         <div id="script-viewer-container" class="bg-[#0a0a0f] p-4 rounded-xl border border-white/5 font-mono text-xs text-blue-300 overflow-y-auto modal-scroll flex-grow relative group/code hidden h-48 md:h-64 lg:h-80">
                             <pre id="script-viewer-content" class="whitespace-pre-wrap break-all md:whitespace-pre md:break-normal"></pre>
-                            <div class="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity">
+                            <div class="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity hidden md:block">
                                 <span class="bg-black/80 text-[10px] text-gray-400 px-2 py-1 rounded">${t.modal_readonly}</span>
                             </div>
                         </div>
@@ -650,14 +658,14 @@
                 
                 <div class="w-full h-48 md:h-auto md:w-2/5 bg-black p-4 flex items-center justify-center border-b md:border-b-0 md:border-r border-white/5 relative shrink-0">
                     <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent"></div>
-                    <img src="${project.imageUrl}" class="relative max-w-full max-h-[300px] object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]" onerror="this.src='https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';">
+                    <img src="${project.imageUrl}" class="relative max-w-full max-h-[250px] md:max-h-[300px] object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]" onerror="this.src='https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';">
                 </div>
                 
                 <div class="w-full md:w-3/5 p-5 md:p-8 flex flex-col bg-brand-card overflow-hidden h-full max-h-[90vh]">
                     <div class="inline-block px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-[10px] font-mono text-blue-400 w-max mb-3 shrink-0">
                         ${project.badge}
                     </div>
-                    <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-1 shrink-0">${project.name}</h3>
+                    <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white mb-1 shrink-0 break-words">${project.name}</h3>
                     <p class="text-gray-400 text-xs mb-4 flex items-center gap-2 shrink-0"><i class="fas fa-folder-open text-gray-500"></i> ${t.modal_category}: ${project.mainCategory}</p>
                     
                     ${actionHTML}
@@ -721,7 +729,7 @@
             tabsContainer.innerHTML = categories.map(cat => `
                 <button onclick="filterProjects('${cat}')" 
                         data-cat="${cat}"
-                        class="filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-white/10 ${cat === 'All' ? 'bg-brand-accent text-white border-brand-accent shadow-[0_0_15px_rgba(59,130,246,0.4)]' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'}">
+                        class="filter-btn px-4 sm:px-6 py-1.5 sm:py-2 text-sm sm:text-base rounded-full font-semibold transition-all duration-300 border border-white/10 ${cat === 'All' ? 'bg-brand-accent text-white border-brand-accent shadow-[0_0_15px_rgba(59,130,246,0.4)]' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'}">
                     ${cat}
                 </button>
             `).join('');
@@ -730,9 +738,9 @@
         window.filterProjects = function(category) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if (btn.getAttribute('data-cat') === category) {
-                    btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-brand-accent bg-brand-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]";
+                    btn.className = "filter-btn px-4 sm:px-6 py-1.5 sm:py-2 text-sm sm:text-base rounded-full font-semibold transition-all duration-300 border border-brand-accent bg-brand-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]";
                 } else {
-                    btn.className = "filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300 border border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white";
+                    btn.className = "filter-btn px-4 sm:px-6 py-1.5 sm:py-2 text-sm sm:text-base rounded-full font-semibold transition-all duration-300 border border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white";
                 }
             });
             renderProjects(category);
@@ -791,7 +799,7 @@
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold text-white mb-2 cursor-pointer hover:text-brand-accent transition-colors w-max" onclick="openModal(${index})">${project.name}</h3>
+                        <h3 class="text-xl font-bold text-white mb-2 cursor-pointer hover:text-brand-accent transition-colors w-full break-words" onclick="openModal(${index})">${project.name}</h3>
                         <p class="text-gray-400 mb-6 text-sm flex-grow">${descriptionText}</p>
                         ${buttonHTML}
                     </div>
