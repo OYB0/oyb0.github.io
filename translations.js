@@ -36,6 +36,7 @@ const translations = {
         "modal_copy_clip": "Copy Script to Clipboard",
         "modal_no_scripts": "No scripts found for this project.",
         "modal_view_repo": "View Repo",
+        "modal_tutorial_video": "Tutorial Video",
         "search_label": "Search"
     },
     ar: {
@@ -75,6 +76,7 @@ const translations = {
         "modal_copy_clip": "نسخ السكربت",
         "modal_no_scripts": "لا توجد سكربتات في هذا المشروع.",
         "modal_view_repo": "عرض المستودع",
+        "modal_tutorial_video": "فيديو تعليمي",
         "search_label": "بحث"
     }
 };
