@@ -19,7 +19,7 @@ const myProjectsData = [
         linkData: {
             url: "https://create.roblox.com/store/asset/89740483068098/OYB-Events-Panel",
             btnText: "View on Roblox Studio",
-            iconImage: "https://github.com/OYB0/oyb0.github.io/blob/main/RobloxStudio.png?raw=true" 
+            iconImage: "https://github.com/OYB0/oyb0.github.io/blob/main/RobloxStudio.webp?raw=true" 
         },
         imageUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/RobloxStudio/EventsPanel/cover.png",
         mainCategory: "Roblox",
