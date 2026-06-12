@@ -15,13 +15,13 @@ const myProjectsData = [
     {
         name: "Events Panel",
         actionType: "link", 
-        videoUrl: "https://youtu.be/Zx0taEAkBBM", // تمت إضافة رابط الفيديو
+        videoUrl: "https://www.youtube.com/watch?v=_YaEtuLHRDg", // تمت إضافة رابط الفيديو
         linkData: {
-            url: "https://create.roblox.com/store/asset/89740483068098/OYB-Events-Panel",
+            url: "https://create.roblox.com/store/asset/71640449795118",
             btnText: "View on Roblox Studio",
             iconImage: "https://github.com/OYB0/oyb0.github.io/blob/main/RobloxStudio.webp?raw=true" 
         },
-        imageUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/RobloxStudio/EventsPanel/cover.png",
+        imageUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/RobloxStudio/EventsPanel/cover.webp",
         mainCategory: "Roblox",
         badge: "Roblox Studio Model"
     },
