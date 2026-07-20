@@ -26,7 +26,7 @@ const myProjectsData = [
         badge: "Roblox Studio Model"
     },
     {
-        name: "Multi-Game Script Loader",
+        name: "Multi Game Script Loader",
         actionType: "view", 
         repoUrl: "https://github.com/OYB0/OYB0/tree/main/Roblox/Executor/Multi-GameScriptLoader",
         videoUrl: "https://youtu.be/klf9EnL23So", // تمت إضافة رابط الفيديو
