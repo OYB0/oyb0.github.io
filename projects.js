@@ -26,18 +26,6 @@ const myProjectsData = [
         badge: "Roblox Studio Model"
     },
     {
-        name: "Roblox Telegram Monitor",
-        actionType: "view", 
-        repoUrl: "https://github.com/OYB0/OYB/tree/main/Roblox/RobloxStudio/RobloxTelegramMonitor",
-        videoUrl: "https://youtu.be/l_PF8hEVKnI", // تمت إضافة رابط الفيديو
-        scripts: [
-            { name: "TheScript.lua", rawUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/RobloxStudio/RobloxTelegramMonitor/TheScript.lua" }
-        ],
-        imageUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/RobloxStudio/RobloxTelegramMonitor/cover.png",
-        mainCategory: "Roblox",
-        badge: "Roblox Studio"
-    },
-    {
         name: "Multi-Game Script Loader",
         actionType: "view", 
         repoUrl: "https://github.com/OYB0/OYB0/tree/main/Roblox/Executor/Multi-GameScriptLoader",
