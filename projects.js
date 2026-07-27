@@ -38,14 +38,6 @@ const myProjectsData = [
         badge: "Executor Script"
     },
     {
-        name: "OYB Hub",
-        actionType: "copy", 
-        copyContent: "loadstring(game:HttpGet('https://raw.githubusercontent.com/OYB0/OYBHubscript/refs/heads/main/oybscript'))()",
-        imageUrl: "https://github.com/OYB0/oyb0.github.io/blob/main/OYBHub.png?raw=true",
-        mainCategory: "Roblox",
-        badge: "Run on Executor"
-    },
-    {
         name: "CamScope",
         actionType: "link",
         repoUrl: "https://github.com/OYB0/OYB0/tree/main/Roblox/RobloxStudio/CamScope",
@@ -57,5 +49,14 @@ const myProjectsData = [
         imageUrl: "https://raw.githubusercontent.com/OYB0/OYB0/refs/heads/main/Roblox/RobloxStudio/CamScope/cover.webp",
         mainCategory: "Roblox",
         badge: "Roblox Plugin"
+    },
+    
+    {
+        name: "OYB Hub",
+        actionType: "copy", 
+        copyContent: "loadstring(game:HttpGet('https://raw.githubusercontent.com/OYB0/OYBHubscript/refs/heads/main/oybscript'))()",
+        imageUrl: "https://github.com/OYB0/oyb0.github.io/blob/main/OYBHub.png?raw=true",
+        mainCategory: "Roblox",
+        badge: "Run on Executor"
     },
 ];
