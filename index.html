@@ -8,6 +8,13 @@
     <title>OYB DEVELOPER | Official Software & Scripts</title>
     <meta name="description" content="The official public repository of OYB DEVELOPER. Providing secure, optimized scripts and Desktop Applications.">
     
+    <!-- Open Graph / Discord Preview Tags (تمت إضافتها) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="OYB DEVELOPER | Official Software & Scripts">
+    <meta property="og:description" content="The official public repository of OYB DEVELOPER. Providing secure, optimized scripts and Desktop Applications.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/OYB0/oyb0.github.io/main/oyb.png">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="icon" type="image/png" href="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true">
     
     <!-- Tailwind CSS (CDN) -->
@@ -504,7 +511,7 @@
             }
         };
 
-        // --- MODAL SYSTEM RE-ENGINEERED ---
+        // --- MODAL SYSTEM ---
         window.openModal = function(index) {
             const project = window.filteredProjectsData[index];
             if(!project) return;
@@ -530,7 +537,7 @@
                 </div>
             `;
 
-            // Setup Project Links (Repo & Video) - Placed under title for all types
+            // Setup Project Links (Repo & Video)
             let resourceLinksHTML = '';
             if (project.repoUrl || project.videoUrl) {
                 resourceLinksHTML = '<div class="flex flex-wrap gap-2 mb-3 shrink-0">';
@@ -631,7 +638,6 @@
                 `;
             }
 
-            // --- الميزة الجديدة (التحويل الذكي للصيغة) ---
             const origImg = project.imageUrl;
             const webpImg = origImg.replace(/\.(png|jpe?g)$/i, '.webp');
             const fallbackLogo = 'https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';
@@ -768,7 +774,6 @@
                 else if (actionType === 'view') descriptionText = t.desc_view;
                 else if (actionType === 'link') descriptionText = t.desc_link;
 
-                // --- الميزة الجديدة (التحويل الذكي للصيغة) ---
                 const origImg = project.imageUrl;
                 const webpImg = origImg.replace(/\.(png|jpe?g)$/i, '.webp');
                 const fallbackLogo = 'https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';
