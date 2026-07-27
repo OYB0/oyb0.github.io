@@ -44,5 +44,18 @@ const myProjectsData = [
         imageUrl: "https://github.com/OYB0/oyb0.github.io/blob/main/OYBHub.png?raw=true",
         mainCategory: "Roblox",
         badge: "Run on Executor"
-    }
+    },
+    {
+        name: "CamScope",
+        actionType: "link",
+        repoUrl: "https://github.com/OYB0/OYB0/tree/main/Roblox/RobloxStudio/CamScope",
+        linkData: {
+            url: "https://create.roblox.com/store/asset/84925617114221",
+            btnText: "View on Roblox Studio",
+            iconImage: "https://github.com/OYB0/oyb0.github.io/blob/main/RobloxStudio.webp?raw=true"
+        },
+        imageUrl: "https://raw.githubusercontent.com/OYB0/OYB0/refs/heads/main/Roblox/RobloxStudio/CamScope/cover.webp",
+        mainCategory: "Roblox",
+        badge: "Roblox Plugin"
+    },
 ];
