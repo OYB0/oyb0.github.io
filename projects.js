@@ -50,13 +50,4 @@ const myProjectsData = [
         mainCategory: "Roblox",
         badge: "Roblox Plugin"
     },
-    
-    {
-        name: "OYB Hub",
-        actionType: "copy", 
-        copyContent: "loadstring(game:HttpGet('https://raw.githubusercontent.com/OYB0/OYBHubscript/refs/heads/main/oybscript'))()",
-        imageUrl: "https://github.com/OYB0/oyb0.github.io/blob/main/OYBHub.png?raw=true",
-        mainCategory: "Roblox",
-        badge: "Run on Executor"
-    },
 ];
