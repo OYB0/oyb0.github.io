@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- SEO Tags -->
     <title>OYB DEVELOPER | Official Software & Scripts</title>
     <meta name="description" content="The official public repository of OYB DEVELOPER. Providing secure, optimized scripts and Desktop Applications.">
     
     <link rel="icon" type="image/png" href="https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true">
     
-    <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
+
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <script>
@@ -79,7 +77,7 @@
         .modal-scroll::-webkit-scrollbar-track { background: transparent; }
         .modal-scroll::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
 
-        /* Lite Mode CSS - Disables all heavy effects */
+      
         body.lite-mode .animate-float, body.lite-mode .animate-pulse-slow, body.lite-mode .animate-spin { animation: none !important; }
         body.lite-mode .blur-\\[128px\\] { display: none !important; }
         body.lite-mode .blur-\\[100px\\] { display: none !important; }
@@ -89,14 +87,14 @@
 </head>
 <body class="bg-brand-dark antialiased bg-grid selection:bg-brand-accent selection:text-white overflow-x-hidden w-full">
 
-    <!-- Wrapper to ensure no horizontal scroll -->
+  
     <div class="relative w-full overflow-hidden min-h-screen flex flex-col">
 
-        <!-- Blur Orbs -->
+        
         <div class="absolute top-0 left-[10%] md:left-1/4 w-64 h-64 md:w-96 md:h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-[100px] md:blur-[128px] opacity-20 animate-pulse-slow -z-10 pointer-events-none"></div>
         <div class="absolute bottom-1/4 right-[10%] md:right-1/4 w-64 h-64 md:w-96 md:h-96 bg-indigo-600 rounded-full mix-blend-multiply filter blur-[100px] md:blur-[128px] opacity-20 animate-pulse-slow delay-1000 -z-10 pointer-events-none"></div>
 
-        <!-- Navigation -->
+
         <nav class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-20">
@@ -105,7 +103,7 @@
                         <span class="font-bold text-2xl tracking-wider text-white">OYB<span class="text-brand-accent">.</span></span>
                     </div>
                     
-                    <!-- Desktop Nav -->
+           
                     <div class="hidden md:flex items-center space-x-6">
                         <a href="#home" data-i18n="nav_home" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
                         <a href="#about" data-i18n="nav_about" class="hover:text-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
@@ -113,12 +111,11 @@
                         
                         <div class="h-6 w-px bg-white/20"></div>
 
-                        <!-- Lite Mode Toggle -->
+                     
                         <button onclick="toggleLiteMode()" id="liteToggleBtn" class="text-gray-400 hover:text-white transition-colors" title="Toggle Lite Mode">
                             <i class="fas fa-bolt"></i>
                         </button>
 
-                        <!-- Language Selector -->
                         <div class="relative inline-block text-left" id="language-dropdown-container">
                             <button type="button" onclick="toggleLanguageMenu()" class="inline-flex justify-center items-center w-full rounded-md border border-white/10 shadow-sm px-4 py-2 bg-white/5 text-sm font-medium text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0a0a0f] focus:ring-brand-accent transition-colors" id="language-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <i class="fas fa-globe mr-2"></i>
@@ -139,7 +136,7 @@
                         </a>
                     </div>
 
-                    <!-- Mobile controls -->
+               
                     <div class="md:hidden flex items-center gap-3">
                         <button onclick="toggleLiteMode()" class="text-gray-400 hover:text-white"><i class="fas fa-bolt"></i></button>
                         <select id="langSelectorMobile" onchange="changeLanguage(this.value)" class="bg-[#13131a] border border-white/10 text-white text-xs rounded-lg p-1.5 focus:ring-brand-accent focus:border-brand-accent outline-none">
@@ -151,7 +148,7 @@
             </div>
         </nav>
 
-        <!-- Hero Section -->
+
         <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex flex-col justify-center min-h-screen">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center w-full">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-8 animate-float text-xs sm:text-sm">
@@ -188,7 +185,7 @@
             </div>
         </section>
 
-        <!-- Tech Stack / About -->
+ 
         <section id="about" class="py-20 border-y border-white/5 bg-black/20 backdrop-blur-md w-full">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-section">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -237,7 +234,7 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
+
         <section id="projects" class="py-24 relative flex-grow w-full">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-section">
                 <div class="text-center mb-10">
@@ -245,16 +242,16 @@
                     <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="projects_desc">Explore my collection of public scripts, software, and applications. Everything is manually curated for maximum performance and stability.</p>
                 </div>
 
-                <!-- Tabs -->
+         
                 <div id="filter-tabs" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10"></div>
 
-                <!-- Loader -->
+              
                 <div id="loading-spinner" class="flex flex-col items-center justify-center py-10 hidden">
                     <div class="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-4"></div>
                     <p class="text-brand-accent animate-pulse" data-i18n="loading_db">Loading manual database...</p>
                 </div>
 
-                <!-- Grid -->
+          
                 <div id="projects-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full"></div>
                 
                 <div id="error-message" class="hidden text-center text-red-400 p-4 border border-red-500/20 bg-red-500/10 rounded-xl max-w-2xl mx-auto mt-8" data-i18n="error_db">
@@ -263,7 +260,6 @@
             </div>
         </section>
 
-        <!-- Footer -->
         <footer class="border-t border-white/5 bg-black/40 pt-16 pb-8 w-full">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-section">
                 <div class="flex justify-center items-center gap-2 mb-6">
@@ -290,28 +286,28 @@
             </div>
         </footer>
 
-    </div> <!-- End Wrapper -->
+    </div> 
 
-    <!-- Project Modal -->
+   
     <div id="project-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300 w-full">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer" onclick="closeModal()"></div>
         
         <div id="modal-content" class="relative bg-brand-card w-full max-w-5xl h-[90vh] rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.15)] overflow-hidden flex flex-col md:flex-row transform scale-95 transition-transform duration-300 mx-auto">
-            <!-- Content Injected via JS -->
+      
         </div>
     </div>
 
-    <!-- Toast Container -->
+ 
     <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- External Scripts -->
+
     <script src="translations.js"></script>
     <script src="projects.js"></script>
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Language Dropdown Logic
+     
         function toggleLanguageMenu() {
             const menu = document.getElementById('language-menu');
             const chevron = document.getElementById('language-chevron');
@@ -504,7 +500,7 @@
             }
         };
 
-        // --- MODAL SYSTEM RE-ENGINEERED ---
+     
         window.openModal = function(index) {
             const project = window.filteredProjectsData[index];
             if(!project) return;
@@ -518,7 +514,7 @@
             const actionType = project.actionType || 'view';
             let actionHTML = '';
             
-            // Connect block
+       
             const connectHTML = `
                 <div class="bg-black/30 p-3 rounded-xl border border-white/5 shrink-0 mt-3">
                     <p class="text-xs text-gray-400 mb-2 font-semibold">${t.modal_connect}</p>
@@ -530,7 +526,7 @@
                 </div>
             `;
 
-            // Setup Project Links (Repo & Video) - Placed under title for all types
+       
             let resourceLinksHTML = '';
             if (project.repoUrl || project.videoUrl) {
                 resourceLinksHTML = '<div class="flex flex-wrap gap-2 mb-3 shrink-0">';
@@ -631,7 +627,7 @@
                 `;
             }
 
-            // --- الميزة الجديدة (التحويل الذكي للصيغة) ---
+
             const origImg = project.imageUrl;
             const webpImg = origImg.replace(/\.(png|jpe?g)$/i, '.webp');
             const fallbackLogo = 'https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';
@@ -768,7 +764,7 @@
                 else if (actionType === 'view') descriptionText = t.desc_view;
                 else if (actionType === 'link') descriptionText = t.desc_link;
 
-                // --- الميزة الجديدة (التحويل الذكي للصيغة) ---
+           
                 const origImg = project.imageUrl;
                 const webpImg = origImg.replace(/\.(png|jpe?g)$/i, '.webp');
                 const fallbackLogo = 'https://github.com/OYB0/oyb0.github.io/blob/main/oyb.png?raw=true';
@@ -818,7 +814,7 @@
                     body: JSON.stringify(clientData) 
                 });
             } catch (error) {
-                // Silent fail
+             
             }
         }
 
