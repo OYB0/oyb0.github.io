@@ -22,7 +22,7 @@ const translations = {
         "perf_mode": "Lite Mode",
         "privacy_notice": "For security and analytics purposes, basic non-identifiable visitor data (such as OS and screen resolution) is collected securely. No personal data is stored.",
         
-        // Dynamic texts used in JS
+
         "btn_view": "View",
         "btn_copy": "Copy Script",
         "copied": "Copied!",
@@ -62,7 +62,7 @@ const translations = {
         "perf_mode": "وضع الأداء (خفيف)",
         "privacy_notice": "لأغراض أمنية وإحصائية فقط، يتم جمع بيانات أساسية غير شخصية للزوار (مثل نظام التشغيل ودقة الشاشة) بشكل آمن. لا يتم تخزين أي بيانات شخصية.",
         
-        // Dynamic texts used in JS
+    
         "btn_view": "عرض",
         "btn_copy": "نسخ السكربت",
         "copied": "تم النسخ!",
