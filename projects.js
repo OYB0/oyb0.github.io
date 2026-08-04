@@ -3,7 +3,7 @@ const myProjectsData = [
         name: "Key System",
         actionType: "view",
         repoUrl: "https://github.com/OYB0/OYB/tree/main/Roblox/Executor/KeySystem", 
-        videoUrl: "https://youtu.be/nhj-zguVLhI", // تمت إضافة رابط الفيديو
+        videoUrl: "https://youtu.be/nhj-zguVLhI",
         scripts: [
             { name: "KeySystemUi.lua", rawUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/Executor/KeySystem/KeySystemUi.lua" },
             { name: "SecretCode.lua", rawUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/Executor/KeySystem/SecretCode.lua" }
@@ -15,7 +15,7 @@ const myProjectsData = [
     {
         name: "Events Panel",
         actionType: "link", 
-        videoUrl: "https://www.youtube.com/watch?v=_YaEtuLHRDg", // تمت إضافة رابط الفيديو
+        videoUrl: "https://www.youtube.com/watch?v=_YaEtuLHRDg", 
         linkData: {
             url: "https://create.roblox.com/store/asset/71640449795118",
             btnText: "View on Roblox Studio",
@@ -29,7 +29,7 @@ const myProjectsData = [
         name: "Multi Game Script Loader",
         actionType: "view", 
         repoUrl: "https://github.com/OYB0/OYB0/tree/main/Roblox/Executor/Multi-GameScriptLoader",
-        videoUrl: "https://youtu.be/klf9EnL23So", // تمت إضافة رابط الفيديو
+        videoUrl: "https://youtu.be/klf9EnL23So", 
         scripts: [
             { name: "TheScript.lua", rawUrl: "https://raw.githubusercontent.com/OYB0/OYB/main/Roblox/Executor/Multi-GameScriptLoader/TheScript.lua" }
         ],
